@@ -10,21 +10,21 @@ A simple, fast and powerful blog & document theme built by Astro.
 
 ## Usage
 
-### Use with theme template
+# Use with theme template
 
 See [Getting Started](https://astro-pure.js.org/docs/setup/getting-started).
 
-### Use with common Astro project
+# Use with common Astro project
 
 See [User Components](https://astro-pure.js.org/docs/integrations/components) & [Advanced Components](https://astro-pure.js.org/docs/integrations/advanced) to learn how to use.
 
 > Some part of Advanced Components may require Astro Integration config.
 
-#### UnoCSS
+## UnoCSS
 
 UnoCSS is more recommended, and TailwindCSS method will be removed soon.
 
-#### TailwindCSS V3
+## TailwindCSS V3
 
 Set up tailwindcss v3 in your project.
 

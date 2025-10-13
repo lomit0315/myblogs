@@ -19,7 +19,7 @@ A simple, fast and powerful blog & document theme built by Astro.
 
 Checkout [Demo Site →](https://astro-pure.js.org/)
 
-### :fire: Features
+# :fire: Features
 
 - [x] :rocket: Fast & high performance
 - [x] :star: Simple & clean design
@@ -31,7 +31,7 @@ Checkout [Demo Site →](https://astro-pure.js.org/)
 - [x] :framed_picture: Dynamic open graph generation for posts
 - [x] :framed_picture: Mediumzoom lightbox for images
 
-### :package: Components
+# :package: Components
 
 Theme includes a lot of components, which can not only be used in the theme, but also in other astro projects.
 
@@ -40,7 +40,7 @@ Theme includes a lot of components, which can not only be used in the theme, but
 - Basic components: `Aside`, `Tabs`, `Timeline`, `Steps`, `Spoiler`...
 - Advanced components: `GithubCard`, `LinkPreview`, `Quote`, `QRCode`...
 
-### :white_check_mark: Lighthouse score
+# :white_check_mark: Lighthouse score
 
 [![lighthouse-score](./.github/assets/lighthouse-score.png)](https://pagespeed.web.dev/analysis/https-cworld-top/o229zrt5o4?form_factor=mobile&hl=en)
 

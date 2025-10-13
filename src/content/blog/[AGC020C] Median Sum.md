@@ -2,6 +2,8 @@
 title: "[AGC020C] Median Sum"
 description: " "
 publishDate: 2024-11-11
+tags:
+ - solution
 ---
 # [AGC020C] Median Sum
 

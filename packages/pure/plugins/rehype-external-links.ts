@@ -16,7 +16,7 @@ const defaultProtocols = ['http', 'https']
 /**
  * Automatically add `rel` (and `target`?) to external links.
  *
- * ###### Notes
+ * ## Notes
  *
  * You should [likely not configure `target`][css-tricks].
  *

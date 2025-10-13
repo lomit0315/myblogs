@@ -19,7 +19,7 @@
 
 查看 [预览 →](https://astro-pure.js.org/)
 
-### :fire: 特性
+# :fire: 特性
 
 - [x] :rocket: 快速高性能
 - [x] :star: 简单干净的设计
@@ -31,7 +31,7 @@
 - [x] :framed_picture: 动态为文章生成可供三方媒体预览的分享图像
 - [x] :framed_picture: Mediumzoom 图像灯箱
 
-### :package: 组件
+# :package: 组件
 
 主题包含了许多组件，不仅可以在主题中使用，还可以在其他 Astro 项目中使用。
 

@@ -6,7 +6,7 @@ order: 4
 
 ## Routes
 
-### Blog specific route
+# Blog specific route
 
 Routing blogs format like `/blog/:year/:id`
 
@@ -14,7 +14,7 @@ See [4.0.2-beta如何使文章链接中包含年份](https://github.com/cworld1/
 
 ## Content
 
-### Support web images for `heroImage`
+# Support web images for `heroImage`
 
 It should be used with `inferSize: true` to get the image size. Example:
 
@@ -25,7 +25,7 @@ heroImage:
 
 ## Vite
 
-### Vite Block Request
+# Vite Block Request
 
 ```log
 Blocked request. This host ("xxx")is not allowed.
@@ -36,6 +36,6 @@ See [option server.allowedHosts doesn't take into account "true"](https://github
 
 ## Packages
 
-### Problem with `BUN_LINK_PKG`
+# Problem with `BUN_LINK_PKG`
 
 See [BUN_LINK_PKG 环境变量无法设置成功](https://github.com/cworld1/astro-theme-pure/issues/51)
