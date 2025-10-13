@@ -5,6 +5,7 @@ description: "当理性压制了好奇心，就会感觉“什么都无聊”。
 tags:
  - personal
  - reflection
+heroImage: { src: './2.jpg', color: '#B4C6DA' }
 ---
 ## 前言
 
