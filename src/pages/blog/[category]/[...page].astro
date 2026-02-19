@@ -15,10 +15,11 @@ export const getStaticPaths = (async ({ paginate }) => {
     'tech': 'Technical',
     'daily': 'Daily Life',
     'research': 'Research',
-    'journal': 'Month Journal'
+    'journal': 'Month Journal',
+    'icpc': 'ACM ICPC'
   }
   
-  const categoryOrder = ['research', 'tech', 'daily', 'journal']
+  const categoryOrder = ['icpc', 'research', 'tech', 'daily', 'journal']
   
   const allCollections = await getBlogCollection()
   const allUniqueCategories = getUniqueCategories(allCollections)
