@@ -6,6 +6,8 @@ description: "愿我下一篇总结，能少一点遗憾，多一点“我真的
 tags:
  - personal
  - reflection
+
+heroImage: { src: '1.jpg', color: '#B4C6DA' }
 ---
 从国内转学来到明大，转眼已经一年了。
 这是全新的一年，也是重新出发的一年。

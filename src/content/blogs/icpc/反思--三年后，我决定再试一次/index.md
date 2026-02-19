@@ -6,6 +6,8 @@ description: "人总要跟自己的过去和解，但有些事，还是要亲手
 tags:
  - personal
  - reflection
+
+heroImage: { src: '137265211_p0_master1200.jpg', color: '#B4C6DA' }
 ---
 
 ```

@@ -4,8 +4,8 @@ title: The 4th Universal Cup. Stage 10 Grand Prix of Wrocław
 publishDate: 2026-01-28 16:04:56
 description: "ciallo~"
 tags:
- - personal
  - reflection
+ - solution
 heroImage: { src: '1.png', color: '#B4C6DA' }
 ---
 

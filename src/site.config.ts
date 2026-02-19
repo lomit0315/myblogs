@@ -3,13 +3,13 @@ import type { CardListData, Config, IntegrationUserConfig, ThemeUserConfig } fro
 export const theme: ThemeUserConfig = {
   // === Basic configuration ===
   /** Title for your website. Will be used in metadata and as browser tab title. */
-  title: "Axi Theme 使用文档",
+  title: "lomit's blog",
   /** Will be used in index page & copyright declaration */
-  author: 'Axi Theme',
-  author_en: 'Axi Theme',
+  author: 'lomit',
+  author_en: 'lomit',
   /** Description metadata for your website. Can be used in page metadata. */
-  description: 'Axi Theme 使用文档',
-  description_en: 'Axi Theme Documentation',
+  description: '咕咕嘎嘎',
+  description_en: 'Gu Gu Ga Ga',
   /** The default favicon for your site which should be a path to an image in the `public/` directory. */
   favicon: '/favicon/favicon.ico',
   /** Specify the default language for this site. */

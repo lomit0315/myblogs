@@ -5,6 +5,8 @@ description: " "
 publishDate: 2024-11-11
 tags:
  - solution
+
+heroImage: { src: '1.jpg', color: '#B4C6DA' }
 ---
 # [AGC020C] Median Sum
 

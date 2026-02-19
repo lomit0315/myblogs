@@ -5,6 +5,8 @@ description: "主要是以前写过的一些luogu上的蓝题，口胡+补一下
 publishDate: 2025-05-11
 tags:
  - solution
+
+heroImage: { src: '1.jpg', color: '#B4C6DA' }
 ---
 主要是以前写过的一些luogu上的蓝题，口胡+补一下简易题解
 

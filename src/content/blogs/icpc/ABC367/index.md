@@ -5,6 +5,8 @@ description: "AtCoder Beginner Contest 367 A - Shout Everyday 题解"
 publishDate: 2024-11-11
 tags:
  - solution
+
+heroImage: { src: '137103134_p0_master1200.jpg', color: '#B4C6DA' }
 ---
 ## [**A - Shout Everyday**](https://atcoder.jp/contests/abc367/tasks/abc367_a)
 
