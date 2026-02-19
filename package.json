@@ -79,6 +79,6 @@
     "vfile": "^6.0.3"
   },
   "overrides": {
-    "@emmetio/css-parser": "0.4.1"
+    "@emmetio/css-parser": "0.5.0"
   }
 }
