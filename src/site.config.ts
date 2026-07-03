@@ -61,7 +61,7 @@ export const theme: ThemeUserConfig = {
     /** Enable displaying a "Astro & Axi theme powered" link in your site's footer. */
     credits: true,
     /** Optional details about the social media accounts for this site. */
-    social: { github: 'https://github.com/Axi404/Axi-Theme' }
+    social: { github: 'https://github.com/lomit0315' }
   },
 
   content: {
@@ -75,19 +75,13 @@ export const theme: ThemeUserConfig = {
 
   /** Personal information configuration */
   personal: {
-    /** Your location */
-    location: 'China',
     /** Your GitHub username */
-    githubUsername: 'Axi404',
-    /** Your email address */
-    email: 'gaoning@pjlab.org.cn',
-    /** Your Google Scholar profile URL */
-    googleScholar: 'https://scholar.google.com/citations?user=W9mT0rcAAAAJ&hl=zh-CN',
+    githubUsername: 'lomit0315',
     /** Blog start date for statistics */
     blogStartDate: '2024-06-15',
     /** Domain configuration */
     domains: {
-      main: 'theme.axi404.top',
+      main: 'www.lomit.top',
       // githubPages: '',
       // cloudflare: '',
       // friendCircle: '',
