@@ -198,6 +198,7 @@ const jsonLd = JSON.stringify({
       <a href='#experience'>Experience</a>
       <a href='#publications'>Publications</a>
       <a href='#awards'>Awards</a>
+      <a class='cv-link' href='/cv.pdf' target='_blank' rel='noreferrer'>CV</a>
       <a class='blog-link' href='/blog'>Blog</a>
       <button class='theme-toggle' id='personal-theme-toggle' type='button' aria-label='Toggle color theme'>
         <span aria-hidden='true'>◐</span>
@@ -224,10 +225,10 @@ const jsonLd = JSON.stringify({
       </a>
     </div>
     <div class='profile-links' aria-label='Profile links'>
-      <a href={`mailto:${email}`} title={email}>
+      <a href={`mailto:${email}`} aria-label='Email Anhao Li'>
         <span class='profile-link-main'>
           <span class='profile-link-icon'><Icon name='email' /></span>
-          <span>{email}</span>
+          <span>Email</span>
         </span>
         <span aria-hidden='true'>↗</span>
       </a>
@@ -653,7 +654,7 @@ const jsonLd = JSON.stringify({
     height: 1rem;
     place-items: center;
     border-radius: 0.12rem;
-    background: currentColor;
+    background: var(--home-foreground);
     color: var(--home-background);
     font-family: Arial, sans-serif;
     font-size: 0.67rem;
@@ -1093,7 +1094,7 @@ const jsonLd = JSON.stringify({
       gap: 0.7rem;
     }
 
-    .nav-links > a:not(.blog-link) {
+    .nav-links > a:not(.blog-link):not(.cv-link) {
       display: none;
     }
 
