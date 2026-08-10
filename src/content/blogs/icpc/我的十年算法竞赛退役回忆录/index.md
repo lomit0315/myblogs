@@ -6,6 +6,7 @@ description: "从第一次接触算法竞赛，到进入 ICPC World Finals，写
 tags:
  - reflection
  - contest
+heroImage: { src: '106096441_p7_master1200.jpg', color: '#B4C6DA' }
 ---
 
 2026 年 3 月 22 日， 随着 ICPC北美总决赛 (ICPC NAC) 的结束，我们成功拿到了ICPC World Finals 的名额。
