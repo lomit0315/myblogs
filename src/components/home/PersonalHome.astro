@@ -1,9 +1,11 @@
 ---
 import { Image } from 'astro:assets'
 import avatar from '@/assets/avatar.png'
+import { Icon, SimpleIcon } from '@/components/user'
 
 const scholarUrl = 'https://scholar.google.com/citations?user=gGpfUL4AAAAJ&hl=en'
 const linkedinUrl = 'https://www.linkedin.com/in/anhao-andy-li-b34b1b324/'
+const email = 'li003978@umn.edu'
 
 const news = [
   {
@@ -173,6 +175,7 @@ const jsonLd = JSON.stringify({
   name: 'Anhao Li',
   alternateName: 'lomit',
   url: 'https://www.lomit.top/',
+  email,
   affiliation: {
     '@type': 'CollegeOrUniversity',
     name: 'University of Minnesota Twin Cities'
@@ -219,10 +222,41 @@ const jsonLd = JSON.stringify({
       </a>
     </div>
     <div class='profile-links' aria-label='Profile links'>
-      <a href={scholarUrl} target='_blank' rel='noreferrer'>Google Scholar <span>↗</span></a>
-      <a href='https://github.com/lomit0315' target='_blank' rel='noreferrer'>GitHub <span>↗</span></a>
-      <a href={linkedinUrl} target='_blank' rel='noreferrer'>LinkedIn <span>↗</span></a>
-      <a href='/blog'>Personal blog <span>→</span></a>
+      <a href={`mailto:${email}`} title={email}>
+        <span class='profile-link-main'>
+          <span class='profile-link-icon'><Icon name='email' /></span>
+          <span>{email}</span>
+        </span>
+        <span aria-hidden='true'>↗</span>
+      </a>
+      <a href={scholarUrl} target='_blank' rel='noreferrer'>
+        <span class='profile-link-main'>
+          <span class='profile-link-icon'><SimpleIcon name='googlescholar' size='16' /></span>
+          <span>Google Scholar</span>
+        </span>
+        <span aria-hidden='true'>↗</span>
+      </a>
+      <a href='https://github.com/lomit0315' target='_blank' rel='noreferrer'>
+        <span class='profile-link-main'>
+          <span class='profile-link-icon'><Icon name='github' /></span>
+          <span>GitHub</span>
+        </span>
+        <span aria-hidden='true'>↗</span>
+      </a>
+      <a href={linkedinUrl} target='_blank' rel='noreferrer'>
+        <span class='profile-link-main'>
+          <span class='profile-link-icon'><span class='linkedin-mark' aria-hidden='true'>in</span></span>
+          <span>LinkedIn</span>
+        </span>
+        <span aria-hidden='true'>↗</span>
+      </a>
+      <a href='/blog'>
+        <span class='profile-link-main'>
+          <span class='profile-link-icon'><Icon name='document' /></span>
+          <span>Personal blog</span>
+        </span>
+        <span aria-hidden='true'>→</span>
+      </a>
     </div>
   </aside>
 
@@ -570,6 +604,8 @@ const jsonLd = JSON.stringify({
 
   .profile-links a {
     display: flex;
+    min-width: 0;
+    align-items: center;
     justify-content: space-between;
     gap: 1rem;
     color: var(--home-muted);
@@ -580,6 +616,46 @@ const jsonLd = JSON.stringify({
   .profile-links a:hover,
   .profile-links a:focus-visible {
     color: var(--home-accent);
+  }
+
+  .profile-link-main {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .profile-link-main > span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .profile-link-icon {
+    display: grid;
+    width: 1.1rem;
+    height: 1.1rem;
+    flex: none;
+    place-items: center;
+    color: var(--home-foreground);
+  }
+
+  .profile-link-icon :global(svg) {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .linkedin-mark {
+    display: grid;
+    width: 1rem;
+    height: 1rem;
+    place-items: center;
+    border-radius: 0.12rem;
+    background: currentColor;
+    color: var(--home-background);
+    font-family: Arial, sans-serif;
+    font-size: 0.67rem;
+    font-weight: 800;
+    line-height: 1;
   }
 
   .content-column {
