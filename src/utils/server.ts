@@ -113,14 +113,9 @@ export function groupCollectionsByYear<T extends BlogPostEntry>(
 
 export function sortMDByDate<T extends BlogPostEntry>(collections: T[]): T[] {
   return [...collections].sort((a, b) => {
-    const aUpdatedDate = a.data.updatedDate ? new Date(a.data.updatedDate).valueOf() : 0
-    const bUpdatedDate = b.data.updatedDate ? new Date(b.data.updatedDate).valueOf() : 0
-    if (aUpdatedDate !== bUpdatedDate) {
-      return bUpdatedDate - aUpdatedDate
-    }
-    const aPublishDate = a.data.publishDate ? new Date(a.data.publishDate).valueOf() : 0
-    const bPublishDate = b.data.publishDate ? new Date(b.data.publishDate).valueOf() : 0
-    return bPublishDate - aPublishDate
+    const aDate = new Date(a.data.updatedDate ?? a.data.publishDate).valueOf()
+    const bDate = new Date(b.data.updatedDate ?? b.data.publishDate).valueOf()
+    return bDate - aDate
   })
 }
 

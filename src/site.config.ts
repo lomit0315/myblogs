@@ -3,13 +3,15 @@ import type { CardListData, Config, IntegrationUserConfig, ThemeUserConfig } fro
 export const theme: ThemeUserConfig = {
   // === Basic configuration ===
   /** Title for your website. Will be used in metadata and as browser tab title. */
-  title: "lomit's blog",
+  title: 'Anhao Li',
   /** Will be used in index page & copyright declaration */
-  author: 'lomit',
-  author_en: 'lomit',
+  author: 'Anhao Li',
+  author_en: 'Anhao Li',
   /** Description metadata for your website. Can be used in page metadata. */
-  description: '咕咕嘎嘎',
-  description_en: 'Gu Gu Ga Ga',
+  description:
+    'Anhao Li — AI agents, large language models, long-horizon terminal tasks, and personal notes.',
+  description_en:
+    'Anhao Li — AI agents, large language models, long-horizon terminal tasks, and personal notes.',
   /** The default favicon for your site which should be a path to an image in the `public/` directory. */
   favicon: '/favicon/favicon.ico',
   /** Specify the default language for this site. */
@@ -42,11 +44,9 @@ export const theme: ThemeUserConfig = {
   /** Configure the header of your site. */
   header: {
     menu: [
-      { title: 'Blog', link: '/blog/icpc' },
-      { title: 'Academic', link: '/academic' },
-      { title: 'Projects', link: '/projects' },
-      { title: 'Links', link: '/links' },
-      { title: 'About', link: '/about' }
+      { title: 'Home', link: '/' },
+      { title: 'Blog', link: '/blog' },
+      { title: 'Archives', link: '/archives' }
     ]
   },
 
@@ -59,7 +59,7 @@ export const theme: ThemeUserConfig = {
       // website: '' // only show ICP if url === website
     },
     /** Enable displaying a "Astro & Axi theme powered" link in your site's footer. */
-    credits: true,
+    credits: false,
     /** Optional details about the social media accounts for this site. */
     social: { github: 'https://github.com/lomit0315' }
   },
@@ -77,6 +77,7 @@ export const theme: ThemeUserConfig = {
   personal: {
     /** Your GitHub username */
     githubUsername: 'lomit0315',
+    googleScholar: 'https://scholar.google.com/citations?user=gGpfUL4AAAAJ&hl=en',
     /** Blog start date for statistics */
     blogStartDate: '2024-06-15',
     /** Domain configuration */

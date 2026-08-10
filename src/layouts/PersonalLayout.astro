@@ -1,0 +1,70 @@
+---
+import BaseHead from '@/components/BaseHead.astro'
+import ThemeProvider from '@/components/basic/ThemeProvider.astro'
+import '@/assets/styles/app.css'
+
+interface Props {
+  title: string
+  description: string
+}
+
+const { title, description } = Astro.props
+---
+
+<html lang='en' class='personal-root'>
+  <head>
+    <BaseHead {title} {description} ogImage='/og.png' />
+    <ThemeProvider />
+    <meta name='theme-color' content='#f8f8f6' />
+  </head>
+  <body class='personal-body'>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  .personal-root {
+    --home-background: #f8f8f6;
+    --home-surface: #ffffff;
+    --home-foreground: #202225;
+    --home-muted: #70747a;
+    --home-border: #dfe1e3;
+    --home-accent: #4e6174;
+    --home-accent-soft: #eef1f4;
+    background: var(--home-background);
+    color: var(--home-foreground);
+    scroll-padding-top: 6rem;
+  }
+
+  .personal-root.dark {
+    --home-background: #131516;
+    --home-surface: #1b1e20;
+    --home-foreground: #f1f1ed;
+    --home-muted: #a4a8ad;
+    --home-border: #313538;
+    --home-accent: #a9b9c8;
+    --home-accent-soft: #20262c;
+  }
+
+  .personal-body {
+    min-height: 100vh;
+    margin: 0;
+    background: var(--home-background);
+    color: var(--home-foreground);
+    font-family: 'Satoshi', 'Century Gothic', system-ui, sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+
+  .personal-body * {
+    box-sizing: border-box;
+  }
+
+  .personal-body a {
+    color: inherit;
+  }
+
+  .personal-body ::selection {
+    color: var(--home-background);
+    background: var(--home-accent);
+  }
+</style>
