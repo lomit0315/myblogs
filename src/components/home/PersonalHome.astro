@@ -286,8 +286,7 @@ const jsonLd = JSON.stringify({
 
     <section class='section news-section' id='news'>
       <div class='section-heading'>
-        <p class='section-kicker'>News</p>
-        <h2>Recent updates</h2>
+        <h2>News</h2>
       </div>
       <div class='news-list'>
         {
@@ -315,8 +314,7 @@ const jsonLd = JSON.stringify({
 
     <section class='section' id='research'>
       <div class='section-heading'>
-        <p class='section-kicker'>Research</p>
-        <h2>Research interests</h2>
+        <h2>Research Interests</h2>
       </div>
       <div class='research-list'>
         {
@@ -335,8 +333,7 @@ const jsonLd = JSON.stringify({
 
     <section class='section' id='experience'>
       <div class='section-heading'>
-        <p class='section-kicker'>Experience</p>
-        <h2>Engineering AI systems</h2>
+        <h2>Experience</h2>
       </div>
       <div class='experience-list'>
         {
@@ -356,10 +353,7 @@ const jsonLd = JSON.stringify({
 
     <section class='section' id='publications'>
       <div class='section-heading publication-heading'>
-        <div>
-          <p class='section-kicker'>Publications</p>
-          <h2>Selected work</h2>
-        </div>
+        <h2>Selected Publications</h2>
         <a href={scholarUrl} target='_blank' rel='noreferrer'>All on Scholar ↗</a>
       </div>
       <div class='publication-list'>
@@ -407,8 +401,7 @@ const jsonLd = JSON.stringify({
 
     <section class='section' id='awards'>
       <div class='section-heading'>
-        <p class='section-kicker'>Honors & Awards</p>
-        <h2>Competitive programming</h2>
+        <h2>Honors & Awards</h2>
       </div>
       <div class='award-list'>
         {
@@ -426,11 +419,11 @@ const jsonLd = JSON.stringify({
     </section>
 
     <section class='section education-section' id='education'>
+      <div class='section-heading'>
+        <h2>Education</h2>
+      </div>
       <div class='education-heading'>
-        <div class='section-heading'>
-          <p class='section-kicker'>Education</p>
-          <h2>University of Minnesota Twin Cities</h2>
-        </div>
+        <h3>University of Minnesota Twin Cities</h3>
         <p class='education-period'>Sep 2024 – Present</p>
       </div>
       <div class='education-details'>
@@ -1009,9 +1002,18 @@ const jsonLd = JSON.stringify({
 
   .education-heading {
     display: flex;
+    margin-top: 2.8rem;
     align-items: end;
     justify-content: space-between;
     gap: 2rem;
+  }
+
+  .education-heading h3 {
+    margin: 0;
+    font-size: clamp(1.35rem, 3vw, 1.85rem);
+    font-weight: 650;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
   }
 
   .education-period {
