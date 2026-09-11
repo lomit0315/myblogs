@@ -1,5 +1,6 @@
 ---
 import { cn } from '@/utils'
+import config from '@/site-config'
 
 const { class: className, hideComment, ...props } = Astro.props
 
@@ -9,15 +10,21 @@ const normalizePath = (path: string) => {
 }
 
 const path = normalizePath(Astro.url.pathname)
+
+// The view and comment counts are filled in by Waline. With Waline off they would
+// render as bare "views | comments" labels with nothing in front of them.
+const enabled = config.integ.waline.enable
 ---
 
-<div class={cn('text-base text-sm text-muted-foreground', className)} {...props}>
-  <span class='waline-pageview-count' data-path={path}></span> views
-  {
-    !hideComment && (
-      <a href='#waline'>
-        | <span class='waline-comment-count' data-path={path} /> comments
-      </a>
-    )
-  }
-</div>
+{
+  enabled && (
+    <div class={cn('text-base text-sm text-muted-foreground', className)} {...props}>
+      <span class='waline-pageview-count' data-path={path} /> views
+      {!hideComment && (
+        <a href='#waline'>
+          | <span class='waline-comment-count' data-path={path} /> comments
+        </a>
+      )}
+    </div>
+  )
+}

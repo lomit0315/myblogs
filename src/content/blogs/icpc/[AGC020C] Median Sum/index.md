@@ -1,15 +1,13 @@
 ---
 category: icpc
 title: "[AGC020C] Median Sum"
-description: " "
+description: "用 bitset 背包求所有非空子集和的中位数。"
 publishDate: 2024-11-11
 tags:
  - solution
 
 heroImage: { src: '1.jpg', color: '#B4C6DA' }
 ---
-# [AGC020C] Median Sum
-
 ## 题目简述
 
 给定$n$个整数的可重集合$a_{1,2,3,...,n}$ , 求出它的非空自己的和的中位数

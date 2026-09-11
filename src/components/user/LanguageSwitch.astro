@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
+
 import Icon from './Icon.astro'
 
 // 获取当前语言
@@ -12,7 +13,7 @@ const languages = {
 } as const
 
 // 类型安全的当前语言
-const safeCurrentLocale = (currentLocale === 'zh' || currentLocale === 'en') ? currentLocale : 'zh'
+const safeCurrentLocale = currentLocale === 'zh' || currentLocale === 'en' ? currentLocale : 'zh'
 
 // 计算目标语言
 const targetLocale = safeCurrentLocale === 'zh' ? 'en' : 'zh'
@@ -48,25 +49,31 @@ let targetUrl = getRelativeLocaleUrl(targetLocale, pagePath)
 if (targetUrl !== '/' && targetUrl.endsWith('/')) {
   targetUrl = targetUrl.slice(0, -1)
 }
+
+// 按当前语言给出提示文案，英文页面不应该读到中文标签
+const switchLabel =
+  safeCurrentLocale === 'en'
+    ? `Switch to ${languages[targetLocale]}`
+    : `切换到${languages[targetLocale]}`
 ---
 
-<button 
-  id="language-switch-btn"
-  class="box-content rounded-md border p-1.5 transition-colors hover:bg-border md:group-[.not-top]:rounded-xl"
-  title={`切换到${languages[targetLocale]}`}
+<button
+  id='language-switch-btn'
+  class='box-content rounded-md border p-1.5 transition-colors hover:bg-border md:group-[.not-top]:rounded-xl'
+  title={switchLabel}
   data-target-url={targetUrl}
 >
-  <span class="sr-only">{`切换到${languages[targetLocale]}`}</span>
-  <div class="flex items-center gap-1">
-    <Icon name="earth" class="size-4" />
-    <span class="text-xs font-medium">{languages[safeCurrentLocale]}</span>
+  <span class='sr-only'>{switchLabel}</span>
+  <div class='flex items-center gap-1'>
+    <Icon name='earth' class='size-4' />
+    <span class='text-xs font-medium'>{languages[safeCurrentLocale]}</span>
   </div>
 </button>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const switchBtn = document.getElementById('language-switch-btn') as HTMLButtonElement
-    
+
     if (switchBtn) {
       switchBtn.addEventListener('click', () => {
         const targetUrl = switchBtn.dataset.targetUrl
@@ -76,4 +83,5 @@ if (targetUrl !== '/' && targetUrl.endsWith('/')) {
       })
     }
   })
-</script> 
+</script>
+

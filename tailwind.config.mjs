@@ -28,11 +28,11 @@ const typographyConfig = ({ theme }) => ({
         '&:hover': {
           textDecoration: 'none',
           backgroundColor: fg,
-          color: 'hsl(var(--background))',
+          color: 'hsl(var(--background))'
         }
       },
 
-      'h2, h3, h4, h5, h6': {
+      'h1, h2, h3, h4, h5, h6': {
         scrollMarginTop: '3rem',
         '& > a': {
           marginInlineStart: '0.75rem',
@@ -84,9 +84,7 @@ const typographyConfig = ({ theme }) => ({
 
 /** @type {import('tailwindcss').Config} */
 const config = {
-  content: [
-    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'
-  ],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   darkMode: ['class'],
   safelist: ['dark'],
   plugins: [typography()],

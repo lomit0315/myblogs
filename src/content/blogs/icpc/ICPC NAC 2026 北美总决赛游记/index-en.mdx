@@ -1,0 +1,132 @@
+---
+category: icpc
+title: ICPC NAC 2026 — A North American Championship Diary
+publishDate: 2026-03-27 23:54:56
+description: "The world was finally gentle with you."
+tags:
+ - reflection
+ - contest
+heroImage: { src: '142223607_p0_master1200.jpg', color: '#B4C6DA' }
+---
+
+import { Aside, Tabs, TabItem, Spoiler } from '@/components/user'
+import { GithubCard, LinkPreview, QRCode, ImageGroup, WebVideo } from '@/components/advanced'
+
+## Day -inf
+
+Where to start.
+
+At last year's ICPC NAC I performed terribly and placed near the very bottom of North America. After that I didn't want to touch ICPC at all. I interned all summer, and right up until the ICPC Regional I had barely written any problems — my algorithm skills had decayed to the point where I was failing OAs.
+
+Rationally I knew that a dozen or so problems would bring the feel back, and that I had no business failing an OA. The problem was that during that stretch I didn't want to touch it at all.
+
+By ICPC NAQ it turned out no unusually strong contestant had suddenly appeared at our school, so I teamed up with last year's teammate Jeff plus a new teammate, Yehor. I didn't prepare for the Regional either, the problems were fairly bad, and after writing the warm-up problem I lost interest and left the rest to my teammates. Looking back, I was being a bit of a jerk. Luckily they're good people and never held it against me. Grateful for that.
+
+And so my teammates carried me into the North American Championship, ICPC NAC.
+
+## Day -inf / 2
+
+Over winter break I realized I had to make some trade-offs. Going for the World Finals makes it very hard to juggle everything else. After talking to a lot of friends and thinking it over calmly, I decided to take one more shot at WF. I didn't want to leave myself with regrets.
+
+So on 2025-12-29 I restarted rehab training. Just like during my secondary-school contest years, I started logging my daily problem count and rehab progress, and kept it up all the way to ICPC NAC. Slowly I rediscovered that grinding algorithm problems and learning new algorithms still gives me the strongest positive feedback. I really do love the jolt a beautiful solution gives you.
+
+Over the break I also went through WHITE ALBUM2 in one pass. It moved me a lot. WHITE ALBUM2 is a masterpiece; Maruto is a god.
+
+Once the semester started I immediately got my teammates training together, roughly once a week. They were all enthusiastic, Jeff especially — genuinely passionate. The first time we VP'd a past ICPC NAC, we realized we actually had a shot at WF, and just like that we had confidence.
+
+During training I also gradually realized how talented my teammates are. They may not know that many algorithms, but they are very sharp. Right after I finished explaining the closed form for Catalan numbers, one of them turned around and derived the combinatorial interpretation himself. Genuinely startling.
+
+It was also during this period that I truly understood that ICPC is fundamentally a team contest. Since starting college I seem to have always been thinking in terms of solo play: solve it if I can, and if I can't, check out. I had never really trusted my teammates, never really expected them to share the load, always defaulting to being the backstop myself.
+
+This time I really felt it: to reach WF you have to trust your teammates, you have to build a team strategy — and it looked like we genuinely had a chance. So I trained with the team on weekends while continuing my own individual rehab. I knew I was nowhere near my peak, but my form had come back a fair bit, and my mindset was far better than in high school, which is the thing that affects my performance most.
+
+## Day -10 to -1
+
+Spring break landed right before NAC, giving me one continuous block of free time to train intensively. And the very algorithm that ended up carrying me into WF was one I reviewed during that stretch. Looking back, that feels like fate of a sort.
+
+During this period I also worked up the courage to revisit the 2022 provincial selection — something I hadn't dared touch in the years since I retired — and finished the problems I couldn't solve on the day. It turned out that many of my core ideas back then had actually been right, and I'd failed to finish for various other reasons. A genuine shame. I was a little down for a few days, but I had finally faced and gotten past my own demon, which felt pretty good.
+
+Also during rehab training, I suddenly started dreaming frequently about my high-school contest days. That hadn't happened once in two or three years. Occasionally, lying awake late at night, I couldn't help wondering: if I hadn't made those mistakes, if my mindset had been a bit better then, would my life now be very different? If I really had made it to Tsinghua or Peking, who would I be now? I know life has no "what if", and I still couldn't stop thinking about it. In the days before NAC I thought about this almost every night.
+
+
+
+Over spring break I also interviewed with a company back in China on a whim and unexpectedly landed a fairly large package without much trouble (~~though I have no plans to take it~~). Still, it added a bit of confidence.
+
+The night before we left, Jeff and I were in the lab messing with templates together.
+
+And then we were off.
+
+## Days 0 to 3
+
+Activities scheduled from morning to night. Felt like boot camp.
+
+I also saw a lot of friends from last year. The quant recruiters somehow still remembered me a year later. Lots of socializing, lots of great conversations.
+
+There were some practice contests in between. Purely on ranking, we had a real shot at WF — assuming no disaster in the official contest.
+
+During the OpenAI challenge I was working on a simulated-annealing parameter-tuning problem. Another problem was actually convex-hull-trick DP; my teammate wasn't familiar with it, wrote out the DP recurrence, and sat there thinking about it without showing me in time. When he finally did I solved it instantly, but by then it was too late. A bit of a shame.
+
+After that round his confidence took a hit and he kept saying he wouldn't touch the keyboard on contest day. All I could do was reassure him: it's fine, we'll adjust the strategy properly on the day, and anything you think of or get stuck on you can hand straight to me.
+
+After dinner we watched a bit of Tourist's one-versus-four exhibition, then went to bed early.
+
+## Day 4
+
+Contest day.
+
+Eight and a half hours of sleep. The last time I slept that well before a contest was probably high school — in college I routinely go into a contest or exam on four or five hours.
+
+~~As for why I usually sleep so little, it definitely isn't because I stay up messing around too long.~~
+
+The strategy I set before the contest: early on, everyone thinks independently, and the moment you believe you have it, get on the machine and write, tracking the scoreboard as closely as possible. Mid-to-late contest, switch to one person on the machine while the other two work a problem together. For any solution you're unsure about, explain it to someone else first to validate the idea. For problems I solved, anything I thought a teammate could implement got handed off so I could move on to new problems. And if a teammate hit an algorithmic wall — say, a DP recurrence they didn't know how to optimize — they'd hand it straight to me.
+
+At the start my two teammates each wrote a problem. Mine was 0/1 fractional programming (binary search on the answer) plus the Manhattan-to-Chebyshev distance transform. I asked my teammates and found they didn't know that trick, so I wrote it myself. My hands were rusty but it still went in within about 20 minutes, putting us at 14th — already inside the WF qualifying zone. A decent start.
+
+Then we got stuck for a while. The two of them worked one problem together while I worked another. An hour later they got theirs in, moving us to 9th. Meanwhile I still hadn't cracked mine. A teammate started scanning other problems but had no immediate ideas, so I asked him to explain the one he was on. Listening to it, I realized brute force was enough — it just needed a computational geometry template. We had the template, but I wasn't comfortable with it, so I handed it to Jeff, trusting his implementation. The other teammate and I worked a constructive problem together, solved it jointly, handed it to him to write, and I moved on. When Jeff got his in we were back to 12th, and then Yehor started on the constructive problem.
+
+When Yehor's submission passed, we looked at the scoreboard for the remaining feasible problems: a probability DP, a construction, and a circular DP. My head felt a bit foggy and I didn't trust myself on construction. Jeff is good at math, so I gave him the probability DP and took the circular DP.
+
+Step one was how to break the cycle. A moment's thought showed that you can just cut at the maximum and handle the clockwise and counterclockwise directions separately. I wrote out the $n^2$ DP recurrence and first guessed it was a divide-and-conquer/monotonic-decision optimization — I happened to have read about a new toy the month before, a simplified LARSCH algorithm — so I started trying to prove the quadrangle inequality. Halfway through explaining it to a teammate I suddenly realized that only the two ends of the interval can contribute; simplifying the recurrence turned it into plain convex-hull-trick DP. I got ready to write immediately, then realized the transition index $k$ isn't monotonic, so a queue-maintained hull won't work — it needs a Li Chao tree. I had skimmed Li Chao trees the week before without writing any code, and the last time I actually coded one was at least five years ago. I calmed down, re-derived it on scratch paper, found it wasn't hard, and decided I could write it.
+
+At this point a teammate's probability DP got a rejected submission. The scoreboard was already frozen; we were 12th going into the freeze, which is not at all safe, and the pressure was building. But they still chose to trust me: they printed their code and gave me the machine. I wrote the Li Chao tree DP in 20 minutes flat, not yet debugged. Then they said they'd found their bug, so I handed the machine back and their probability DP passed — seven problems, and it started to feel safe (after the contest it turned out to be *not at all* safe, which is a little terrifying).
+
+They gave me the machine back. Debugging for a bit, I found I'd messed up the cycle-to-chain step — the Li Chao tree itself was fine. First submission: WA. Twenty minutes left. My heartbeat skipped and I got a little panicked. I immediately went back through the code line by line and within a minute found it: while debugging I'd set the Li Chao tree size to 10 and never changed it back. Fixed it, resubmitted — Accepted!
+
+My teammates and I cheered on the spot. WF was almost certainly ours.
+
+We spent the last dozen minutes on the remaining constructive problem, and actually solved it in the final minutes — with no time left to write it. Didn't matter. WF was locked.
+
+None of the three of us ate lunch during the contest. Afterwards I was too excited to eat much at all and had to force some food down.
+
+My teammates were thrilled too.
+
+Then came photos, conversations, the ceremony, and waiting for the scoreboard to unfreeze. Final result: 9th in North America, officially qualified for WF.
+
+It didn't feel quite real.
+
+All these years of competition, and here it finally looked like a happy ending.
+
+
+My parents got up at four or five in the morning to wait for my result.
+It felt like the world had finally been gentle with me.
+
+
+And another of my own dreams came true.
+
+This time I really was the one the team could count on, and I finally came through for myself.
+
+## Afterword
+
+The night we qualified for WF I stayed up all night celebrating. My teammate, meanwhile, was doing upsolving. Terrifying.
+
+Thinking about it, Jeff really did give it everything this time. This was his last chance — he graduates from his master's soon — which is why he worked so hard and took it so seriously.
+
+I'm deeply grateful to my teammates for trusting me, and grateful to myself for not giving up.
+
+In that final stretch, analyzed rationally, the constructive problem probably had a better chance of passing than mine did. But my teammates chose to trust me unconditionally anyway and just said "let him cook". And I didn't let them down.
+
+I'm very lucky, and very grateful, to have found teammates this good.
+
+So — see you at ICPC WF 2026 in Dubai!
+
+Zhihu link: https://zhuanlan.zhihu.com/p/2021209593309660945

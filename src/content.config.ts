@@ -1,6 +1,27 @@
 import { defineCollection, z } from 'astro:content'
 import { glob } from 'astro/loaders'
 
+/**
+ * A frontmatter date with no time (`2026-06-21`) is parsed as UTC midnight, which
+ * renders as the previous day in any negative-offset timezone. Anchor those to local
+ * noon so the displayed date matches what was written. Dates that carry a time are
+ * left alone.
+ */
+function normalizeDate(value: unknown) {
+  if (value instanceof Date) {
+    if (value.getUTCHours() === 0 && value.getUTCMinutes() === 0 && value.getUTCSeconds() === 0) {
+      return new Date(value.getUTCFullYear(), value.getUTCMonth(), value.getUTCDate(), 12)
+    }
+    return value
+  }
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value.trim())) {
+    return `${value.trim()}T12:00:00`
+  }
+  return value
+}
+
+const dateField = () => z.preprocess(normalizeDate, z.coerce.date())
+
 function removeDupsAndLowerCase(array: string[]) {
   if (!array.length) return array
   const lowercaseItems = array.map((str) => str.toLowerCase())
@@ -14,9 +35,9 @@ const blogSchema = ({ image }: { image: () => any }) =>
     // Required
     title: z.string().max(60),
     description: z.string().max(160),
-    publishDate: z.coerce.date(),
+    publishDate: dateField(),
     // Optional
-    updatedDate: z.coerce.date().optional(),
+    updatedDate: dateField().optional(),
     heroImage: z
       .object({
         src: image(),

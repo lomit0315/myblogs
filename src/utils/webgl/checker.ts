@@ -1,21 +1,24 @@
+import {
+  applyCachedWebGLState,
+  disableGradientBackground,
+  enableGradientBackground
+} from './background'
+import { getCachedWebGLSupport, hasShownWarning, setCachedWebGLSupport } from './cache'
 import { detectGraphicsAcceleration, getRendererInfo } from './detection'
-import { getCachedWebGLSupport, setCachedWebGLSupport, hasShownWarning } from './cache'
 import { getCurrentLanguage, i18nContent } from './i18n'
 import { showWarning } from './ui'
-import { enableGradientBackground, disableGradientBackground, applyCachedWebGLState } from './background'
 
 export function backgroundCheckWebGL(): void {
   try {
     const acceleration = detectGraphicsAcceleration()
     const rendererInfo = getRendererInfo()
-    
+
     setCachedWebGLSupport({
       webglSupported: acceleration.webglSupported,
       hardwareAccelerated:
-        acceleration.hardwareAccelerated &&
-        !(rendererInfo && rendererInfo.isSoftwareRenderer)
+        acceleration.hardwareAccelerated && !(rendererInfo && rendererInfo.isSoftwareRenderer)
     })
-    
+
     const cached = getCachedWebGLSupport()
     if (cached) {
       if (!cached.webglSupported || !cached.hardwareAccelerated) {
@@ -33,19 +36,18 @@ export function checkGraphicsSupport(): void {
   if (hasShownWarning()) {
     return
   }
-  
+
   try {
     const currentLang = getCurrentLanguage()
     const acceleration = detectGraphicsAcceleration()
     const rendererInfo = getRendererInfo()
-    
+
     setCachedWebGLSupport({
       webglSupported: acceleration.webglSupported,
       hardwareAccelerated:
-        acceleration.hardwareAccelerated &&
-        !(rendererInfo && rendererInfo.isSoftwareRenderer)
+        acceleration.hardwareAccelerated && !(rendererInfo && rendererInfo.isSoftwareRenderer)
     })
-    
+
     if (!acceleration.webglSupported) {
       disableGradientBackground()
       const content = i18nContent[currentLang].webglError
@@ -67,12 +69,13 @@ export function checkGraphicsSupport(): void {
 
 export function initializeWebGL(): void {
   const cachedState = getCachedWebGLSupport()
-  const hasCachedState = !!cachedState
-  
-  if (hasCachedState && cachedState) {
+
+  if (cachedState) {
     applyCachedWebGLState(cachedState.webglSupported, cachedState.hardwareAccelerated)
-    setTimeout(backgroundCheckWebGL, 1500)
-  } else {
-    setTimeout(checkGraphicsSupport, 1500)
   }
+
+  // Detect silently. The gradient background is decorative, so a reader without
+  // WebGL or hardware acceleration should simply not see it -- interrupting them
+  // with a modal that tells them to upgrade their browser is not worth it.
+  setTimeout(backgroundCheckWebGL, 1500)
 }

@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets'
-import { getBlogCollection, sortMDByDate } from '@/server'
+import { getBlogCollectionEn, sortMDByDate } from '@/server'
 
 import { Icon, SimpleIcon } from '@/components/user'
 import portrait from '@/assets/psavatar.png'
@@ -14,7 +14,7 @@ const email = 'li003978@umn.edu'
 
 const highlights = [
   { value: 'ICPC World Finalist', label: '2026 · 9th in North America' },
-  { value: '2 preprints', label: 'Agents & long-horizon evaluation' },
+  { value: '6× NOIP / CSP First Prize', label: 'National olympiad in informatics' },
   { value: '2× SWE intern', label: 'VecML · Bellevue, WA' },
   { value: 'GPA 3.96 / 4.0', label: 'Computer Science, UMN' }
 ]
@@ -220,7 +220,9 @@ const categoryLabels: Record<string, string> = {
   research: 'Research'
 }
 
-const recentPosts = sortMDByDate(await getBlogCollection()).slice(0, 3)
+// This page is in English, so link the English rendering of each post.
+// Every post has an index-en.md; the blog's language switch flips back to Chinese.
+const recentPosts = sortMDByDate(await getBlogCollectionEn()).slice(0, 3)
 const postDateFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' })
 
 const jsonLd = JSON.stringify({
@@ -258,7 +260,7 @@ const jsonLd = JSON.stringify({
       <a href='#experience'>Experience</a>
       <a href='#awards'>Awards</a>
       <a class='cv-link' href='/cv.pdf' target='_blank' rel='noreferrer'>CV</a>
-      <a class='blog-link' href='/blog'>Blog</a>
+      <a class='blog-link' href='/en/blog'>Blog</a>
       <button
         class='theme-toggle'
         id='personal-theme-toggle'
@@ -350,17 +352,8 @@ const jsonLd = JSON.stringify({
       <div class='section-body prose-block'>
         <p>
           I am an undergraduate in Computer Science at the University of Minnesota Twin Cities. My
-          research centers on AI agents and large language models — specifically, how an agent can
-          sustain progress across a task that unfolds over hundreds of terminal steps, and how we
-          can tell, from the outside, whether it is actually getting anywhere.
-        </p>
-        <p>
-          That question pulls in two directions, and I work in both. On the systems side, I build
-          agent infrastructure and evaluation harnesses — the plumbing that lets long runs execute
-          reproducibly. On the measurement side, I work on benchmarks and grading methods that
-          reward partial progress instead of collapsing a long trajectory into a single pass/fail
-          bit. This has led to two recent preprints, and to two summers of engineering work on LLM
-          agent infrastructure and data tooling at VecML.
+          research centers on AI agents and large language models, mostly on evaluation and
+          infrastructure for long-horizon terminal tasks.
         </p>
         <p>
           Before research, competitive programming shaped how I think about problems. I have
@@ -586,17 +579,17 @@ const jsonLd = JSON.stringify({
     <section class='section' id='writing'>
       <div class='section-rail'>
         <h2>Writing</h2>
-        <a class='rail-link' href='/blog'>All posts →</a>
+        <a class='rail-link' href='/en/blog'>All posts →</a>
       </div>
       <div class='section-body'>
         <p class='section-intro muted'>
-          Contest write-ups, technical notes, and the occasional reflection. Most posts are written
-          in Chinese.
+          Contest write-ups, technical notes, and the occasional reflection. Every post is available
+          in English and Chinese.
         </p>
         <div class='post-list'>
           {
             recentPosts.map((post) => (
-              <a class='post-item' href={`/blog/${post.id}`}>
+              <a class='post-item' href={`/en/blog/${post.id}`}>
                 <p class='mono-meta'>{postDateFormatter.format(new Date(post.data.publishDate))}</p>
                 <div>
                   {post.data.category && (
