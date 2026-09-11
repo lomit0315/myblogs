@@ -1,13 +1,23 @@
 ---
 import { Image } from 'astro:assets'
-import avatar from '@/assets/avatar.png'
-import recursiveSynthesisFigure from '@/assets/publications/recursive-synthesis.png'
-import lhtbLeaderboard from '@/assets/publications/lhtb-leaderboard.png'
+import { getBlogCollection, sortMDByDate } from '@/server'
+
 import { Icon, SimpleIcon } from '@/components/user'
+import portrait from '@/assets/psavatar.png'
+import lhtbLeaderboard from '@/assets/publications/lhtb-leaderboard.png'
+import recursiveSynthesisFigure from '@/assets/publications/recursive-synthesis.png'
 
 const scholarUrl = 'https://scholar.google.com/citations?user=gGpfUL4AAAAJ&hl=en'
 const linkedinUrl = 'https://www.linkedin.com/in/anhao-andy-li-b34b1b324/'
+const githubUrl = 'https://github.com/lomit0315'
 const email = 'li003978@umn.edu'
+
+const highlights = [
+  { value: 'ICPC World Finalist', label: '2026 · 9th in North America' },
+  { value: '2 preprints', label: 'Agents & long-horizon evaluation' },
+  { value: '2× SWE intern', label: 'VecML · Bellevue, WA' },
+  { value: 'GPA 3.96 / 4.0', label: 'Computer Science, UMN' }
+]
 
 const news = [
   {
@@ -35,7 +45,8 @@ const news = [
     date: 'Mar 2026',
     category: 'ICPC',
     title: 'Qualified for the ICPC World Finals',
-    description: 'Ranked 9th in North America at ICPC NAC, becoming the first UMN team to qualify in 10 years.',
+    description:
+      'Ranked 9th in North America at ICPC NAC, becoming the first UMN team to qualify in 10 years.',
     href: '#awards'
   },
   {
@@ -58,22 +69,26 @@ const researchInterests = [
   {
     number: '01',
     title: 'AI Agents',
-    description: 'Developing autonomous systems that integrate planning, reasoning, tool use, and feedback to solve complex, long-horizon tasks.'
+    description:
+      'Autonomous systems that combine planning, reasoning, tool use, and feedback to carry a complex task from start to finish.'
   },
   {
     number: '02',
     title: 'Large Language Models',
-    description: 'Investigating post-training, evaluation, and inference-time methods that improve the capability and reliability of language models.'
+    description:
+      'Post-training, evaluation, and inference-time methods that make language models more capable and more reliable.'
   },
   {
     number: '03',
     title: 'Long-horizon Tasks',
-    description: 'Building environments, benchmarks, and verification methods for measuring sustained progress across extended workflows.'
+    description:
+      'Environments, benchmarks, and verification methods that measure sustained progress across workflows spanning hundreds of steps.'
   },
   {
     number: '04',
     title: 'Algorithms & Competitive Programming',
-    description: 'Studying algorithm design and optimization through ICPC, with an emphasis on rigorous reasoning under tight computational constraints.'
+    description:
+      'Algorithm design and optimization through ICPC, with an emphasis on rigorous reasoning under tight computational constraints.'
   }
 ]
 
@@ -91,6 +106,21 @@ const experiences = [
     focus: 'AI Data Analysis Platform',
     company: 'VecML Inc. (AI startup)',
     location: 'Bellevue, WA'
+  }
+]
+
+const service = [
+  {
+    period: '2026 – 2027',
+    role: 'ICPC Coach',
+    detail:
+      'Coaching the University of Minnesota competitive programming team — practice contests, training plans, and problem-set design.'
+  },
+  {
+    period: 'Ongoing',
+    role: 'Competitive Programming Mentoring',
+    detail:
+      'Writing contest editorials and training notes on the blog, and mentoring students moving from introductory algorithms to ICPC-level problems.'
   }
 ]
 
@@ -145,10 +175,14 @@ const publications = [
     ],
     venue: 'arXiv preprint',
     year: '2026',
+    summary:
+      'A recursive, verification-driven pipeline that synthesizes progressively harder terminal tasks, giving agents a training and evaluation signal that scales with their capability.',
     href: 'https://arxiv.org/abs/2608.05466',
-    website: 'https://zhongzhi660.github.io/recursive-verified-synthesis-site/?case=jobs-diff-01-3341b098',
+    website:
+      'https://zhongzhi660.github.io/recursive-verified-synthesis-site/?case=jobs-diff-01-3341b098',
     image: recursiveSynthesisFigure,
-    imageAlt: 'Recursive verified synthesis loop for generating increasingly difficult terminal tasks'
+    imageAlt:
+      'Recursive verified synthesis loop for generating increasingly difficult terminal tasks'
   },
   {
     title:
@@ -170,12 +204,24 @@ const publications = [
     ],
     venue: 'arXiv preprint',
     year: '2026',
+    summary:
+      'A benchmark for agents on extended terminal tasks, replacing pass/fail checks with dense reward-based grading so partial progress is measured rather than discarded.',
     href: 'https://arxiv.org/abs/2607.08964',
     website: 'https://zli12321.github.io/LHTB/',
     image: lhtbLeaderboard,
     imageAlt: 'Long-Horizon Terminal-Bench leaderboard showing model performance'
   }
 ]
+
+const categoryLabels: Record<string, string> = {
+  icpc: 'ICPC',
+  daily: 'Life',
+  tech: 'Tech',
+  research: 'Research'
+}
+
+const recentPosts = sortMDByDate(await getBlogCollection()).slice(0, 3)
+const postDateFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' })
 
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
@@ -184,12 +230,18 @@ const jsonLd = JSON.stringify({
   alternateName: 'lomit',
   url: 'https://www.lomit.top/',
   email,
+  jobTitle: 'Computer Science Undergraduate',
   affiliation: {
     '@type': 'CollegeOrUniversity',
     name: 'University of Minnesota Twin Cities'
   },
-  sameAs: [scholarUrl, 'https://github.com/lomit0315', linkedinUrl],
-  knowsAbout: ['AI Agents', 'Large Language Models', 'Long-horizon terminal tasks']
+  sameAs: [scholarUrl, githubUrl, linkedinUrl],
+  knowsAbout: [
+    'AI Agents',
+    'Large Language Models',
+    'Long-horizon terminal tasks',
+    'Competitive Programming'
+  ]
 })
 ---
 
@@ -201,253 +253,386 @@ const jsonLd = JSON.stringify({
     <div class='nav-links'>
       <a href='#about'>About</a>
       <a href='#news'>News</a>
-      <a href='#experience'>Experience</a>
+      <a href='#research'>Research</a>
       <a href='#publications'>Publications</a>
+      <a href='#experience'>Experience</a>
       <a href='#awards'>Awards</a>
       <a class='cv-link' href='/cv.pdf' target='_blank' rel='noreferrer'>CV</a>
       <a class='blog-link' href='/blog'>Blog</a>
-      <button class='theme-toggle' id='personal-theme-toggle' type='button' aria-label='Toggle color theme'>
+      <button
+        class='theme-toggle'
+        id='personal-theme-toggle'
+        type='button'
+        aria-label='Toggle color theme'
+      >
         <span aria-hidden='true'>◐</span>
       </button>
     </div>
   </nav>
 </header>
 
-<main class='page-shell' id='main-content'>
-  <aside class='profile-card' aria-label='Profile'>
-    <Image
-      src={avatar}
-      alt='Anhao Li avatar'
-      class='avatar'
-      width={220}
-      height={220}
-      loading='eager'
-    />
-    <div>
-      <p class='profile-name'>Anhao Li</p>
-      <p class='profile-role'>Computer Science Undergraduate</p>
-      <a class='university' href='https://twin-cities.umn.edu/' target='_blank' rel='noreferrer'>
-        University of Minnesota Twin Cities
-      </a>
-    </div>
-    <div class='profile-links' aria-label='Profile links'>
-      <a href={`mailto:${email}`} aria-label='Email Anhao Li'>
-        <span class='profile-link-main'>
-          <span class='profile-link-icon'><Icon name='email' /></span>
-          <span>Email</span>
-        </span>
-        <span aria-hidden='true'>↗</span>
-      </a>
-      <a href={scholarUrl} target='_blank' rel='noreferrer'>
-        <span class='profile-link-main'>
-          <span class='profile-link-icon'><SimpleIcon name='googlescholar' size='16' /></span>
-          <span>Google Scholar</span>
-        </span>
-        <span aria-hidden='true'>↗</span>
-      </a>
-      <a href='https://github.com/lomit0315' target='_blank' rel='noreferrer'>
-        <span class='profile-link-main'>
-          <span class='profile-link-icon'><Icon name='github' /></span>
-          <span>GitHub</span>
-        </span>
-        <span aria-hidden='true'>↗</span>
-      </a>
-      <a href={linkedinUrl} target='_blank' rel='noreferrer'>
-        <span class='profile-link-main'>
-          <span class='profile-link-icon'><span class='linkedin-mark' aria-hidden='true'>in</span></span>
-          <span>LinkedIn</span>
-        </span>
-        <span aria-hidden='true'>↗</span>
-      </a>
-      <a href='/blog'>
-        <span class='profile-link-main'>
-          <span class='profile-link-icon'><Icon name='document' /></span>
-          <span>Personal blog</span>
-        </span>
-        <span aria-hidden='true'>→</span>
-      </a>
-    </div>
-  </aside>
+<main id='main-content'>
+  <section class='hero' aria-labelledby='hero-title'>
+    <div class='hero-shell'>
+      <div class='hero-text'>
+        <p class='eyebrow'>AI Agents · Large Language Models</p>
+        <h1 id='hero-title'>Anhao Li</h1>
+        <p class='hero-role'>
+          Computer Science Undergraduate ·
+          <a href='https://twin-cities.umn.edu/' target='_blank' rel='noreferrer'>
+            University of Minnesota Twin Cities
+          </a>
+        </p>
+        <p class='lead'>
+          I work on AI agents and large language models, with a focus on long-horizon terminal tasks
+          — the kind that take hundreds of steps, where the hard part is not a single answer but
+          staying on course.
+        </p>
+        <p class='hero-note'>
+          Most of what I build sits between systems and evaluation: agent infrastructure that runs
+          reliably, and benchmarks that show whether an agent actually made progress. Outside
+          research, I compete in ICPC and coach competitive programming.
+        </p>
+        <div class='hero-actions'>
+          <a class='action primary' href={`mailto:${email}`}>
+            <Icon name='email' />
+            <span>Email me</span>
+          </a>
+          <a class='action' href='/cv.pdf' target='_blank' rel='noreferrer'>
+            <Icon name='document' />
+            <span>CV</span>
+          </a>
+          <a class='action' href={scholarUrl} target='_blank' rel='noreferrer'>
+            <SimpleIcon name='googlescholar' size='15' />
+            <span>Scholar</span>
+          </a>
+          <a class='action' href={githubUrl} target='_blank' rel='noreferrer'>
+            <Icon name='github' />
+            <span>GitHub</span>
+          </a>
+          <a class='action' href={linkedinUrl} target='_blank' rel='noreferrer'>
+            <span class='linkedin-mark' aria-hidden='true'>in</span>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </div>
 
-  <div class='content-column'>
-    <section class='intro-section' id='about'>
-      <p class='eyebrow'>AI AGENTS · LARGE LANGUAGE MODELS</p>
-      <h1>Hi, I’m <span>Anhao Li.</span></h1>
-      <p class='lead'>
-        I am a Computer Science undergraduate at the University of Minnesota Twin Cities. My work
-        centers on AI agents and large language models, with a particular focus on long-horizon
-        terminal tasks.
-      </p>
-      <p class='intro-note'>
-        I build practical agent systems and evaluation tools. Outside research and engineering, I
-        compete in ICPC and coach competitive programming.
-      </p>
+      <figure class='hero-photo'>
+        <Image
+          src={portrait}
+          alt='Portrait of Anhao Li'
+          class='portrait'
+          width={620}
+          height={784}
+          densities={[1, 1.5]}
+          loading='eager'
+        />
+      </figure>
+    </div>
+
+    <dl class='highlight-strip'>
+      {
+        highlights.map((item) => (
+          <div class='highlight'>
+            <dt>{item.value}</dt>
+            <dd>{item.label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <div class='page-shell'>
+    <section class='section' id='about'>
+      <div class='section-rail'>
+        <h2>About</h2>
+      </div>
+      <div class='section-body prose-block'>
+        <p>
+          I am an undergraduate in Computer Science at the University of Minnesota Twin Cities. My
+          research centers on AI agents and large language models — specifically, how an agent can
+          sustain progress across a task that unfolds over hundreds of terminal steps, and how we
+          can tell, from the outside, whether it is actually getting anywhere.
+        </p>
+        <p>
+          That question pulls in two directions, and I work in both. On the systems side, I build
+          agent infrastructure and evaluation harnesses — the plumbing that lets long runs execute
+          reproducibly. On the measurement side, I work on benchmarks and grading methods that
+          reward partial progress instead of collapsing a long trajectory into a single pass/fail
+          bit. This has led to two recent preprints, and to two summers of engineering work on LLM
+          agent infrastructure and data tooling at VecML.
+        </p>
+        <p>
+          Before research, competitive programming shaped how I think about problems. I have
+          competed for about ten years — NOI and USACO in China, then ICPC in the United States —
+          and in 2026 our team became the first from Minnesota in a decade to reach the ICPC World
+          Finals. I now coach the university team, and I still find that the habits from contest
+          practice carry over: decompose the problem, bound the cost, verify before you commit.
+        </p>
+        <p class='currently'>
+          <span>Currently</span> preparing for the ICPC World Finals and coaching the UMN team, while
+          continuing research on agent evaluation.
+        </p>
+      </div>
     </section>
 
-    <section class='section news-section' id='news'>
-      <div class='section-heading'>
+    <section class='section' id='news'>
+      <div class='section-rail'>
         <h2>News</h2>
+        <p class='rail-note'>Recent updates</p>
       </div>
-      <div class='news-list'>
-        {
-          news.map((item) => (
-            <article class='news-item'>
-              <p class='news-date'>{item.date}</p>
-              <div class='news-content'>
-                <p class='news-category'>{item.category}</p>
-                <h3>
-                  <a
-                    href={item.href}
-                    target={item.href.startsWith('http') ? '_blank' : undefined}
-                    rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
-                  >
-                    {item.title}{item.href.startsWith('http') ? ' ↗' : ' →'}
-                  </a>
-                </h3>
-                <p>{item.description}</p>
-              </div>
-            </article>
-          ))
-        }
+      <div class='section-body'>
+        <div class='news-list'>
+          {
+            news.map((item) => (
+              <article class='news-item'>
+                <p class='mono-meta'>{item.date}</p>
+                <div class='news-content'>
+                  <p class='tag'>{item.category}</p>
+                  <h3>
+                    <a
+                      href={item.href}
+                      target={item.href.startsWith('http') ? '_blank' : undefined}
+                      rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
+                    >
+                      {item.title}
+                      <span class='arrow' aria-hidden='true'>
+                        {item.href.startsWith('http') ? '↗' : '→'}
+                      </span>
+                    </a>
+                  </h3>
+                  <p class='muted'>{item.description}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
       </div>
     </section>
 
     <section class='section' id='research'>
-      <div class='section-heading'>
+      <div class='section-rail'>
         <h2>Research Interests</h2>
+        <p class='rail-note'>What I spend my time on</p>
       </div>
-      <div class='research-list'>
-        {
-          researchInterests.map((interest) => (
-            <article class='research-item'>
-              <span class='research-number'>{interest.number}</span>
-              <div>
+      <div class='section-body'>
+        <div class='research-grid'>
+          {
+            researchInterests.map((interest) => (
+              <article class='research-card'>
+                <span class='mono-meta'>{interest.number}</span>
                 <h3>{interest.title}</h3>
-                <p>{interest.description}</p>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </section>
-
-    <section class='section' id='experience'>
-      <div class='section-heading'>
-        <h2>Experience</h2>
-      </div>
-      <div class='experience-list'>
-        {
-          experiences.map((experience) => (
-            <article class='experience-item'>
-              <p class='experience-period'>{experience.period}</p>
-              <div class='experience-content'>
-                <h3>{experience.role}</h3>
-                <p class='experience-focus'>{experience.focus}</p>
-                <p class='company-line'>{experience.company} · {experience.location}</p>
-              </div>
-            </article>
-          ))
-        }
+                <p class='muted'>{interest.description}</p>
+              </article>
+            ))
+          }
+        </div>
       </div>
     </section>
 
     <section class='section' id='publications'>
-      <div class='section-heading publication-heading'>
-        <h2>Selected Publications</h2>
-        <a href={scholarUrl} target='_blank' rel='noreferrer'>All on Scholar ↗</a>
+      <div class='section-rail'>
+        <h2>Publications</h2>
+        <a class='rail-link' href={scholarUrl} target='_blank' rel='noreferrer'>
+          All on Scholar ↗
+        </a>
       </div>
-      <div class='publication-list'>
-        {
-          publications.map((publication) => (
-            <article class='publication-item'>
-              <a
-                class='publication-visual'
-                href={publication.website}
-                target='_blank'
-                rel='noreferrer'
-                aria-label={`Visit the project site for ${publication.title}`}
-              >
-                <Image
-                  src={publication.image}
-                  alt={publication.imageAlt}
-                  class='publication-image'
-                  loading='lazy'
-                />
-              </a>
-              <div class='publication-content'>
-                <p class='publication-year'>{publication.year}</p>
-                <h3>
-                  <a href={publication.href} target='_blank' rel='noreferrer'>{publication.title}</a>
-                </h3>
-                <p class='authors'>
-                  {publication.authors.map((author, index) => (
-                    <>
-                      {author === 'Anhao Li' ? <strong>{author}</strong> : author}
-                      {index < publication.authors.length - 1 ? ', ' : ''}
-                    </>
-                  ))}
-                </p>
-                <div class='publication-meta'>
-                  <span>{publication.venue}</span>
-                  <a href={publication.href} target='_blank' rel='noreferrer'>Paper ↗</a>
-                  <a href={publication.website} target='_blank' rel='noreferrer'>Project site ↗</a>
+      <div class='section-body'>
+        <div class='publication-list'>
+          {
+            publications.map((publication) => (
+              <article class='publication-item'>
+                <a
+                  class='publication-visual'
+                  href={publication.website}
+                  target='_blank'
+                  rel='noreferrer'
+                  aria-label={`Visit the project site for ${publication.title}`}
+                >
+                  <Image
+                    src={publication.image}
+                    alt={publication.imageAlt}
+                    class='publication-image'
+                    loading='lazy'
+                  />
+                </a>
+                <div class='publication-content'>
+                  <p class='mono-meta'>
+                    {publication.venue} · {publication.year}
+                  </p>
+                  <h3>
+                    <a href={publication.href} target='_blank' rel='noreferrer'>
+                      {publication.title}
+                    </a>
+                  </h3>
+                  <p class='authors'>
+                    {publication.authors.map((author, index) => (
+                      <>
+                        {author === 'Anhao Li' ? <strong>{author}</strong> : author}
+                        {index < publication.authors.length - 1 ? ', ' : ''}
+                      </>
+                    ))}
+                  </p>
+                  <p class='muted publication-summary'>{publication.summary}</p>
+                  <div class='publication-meta'>
+                    <a href={publication.href} target='_blank' rel='noreferrer'>
+                      Paper ↗
+                    </a>
+                    <a href={publication.website} target='_blank' rel='noreferrer'>
+                      Project site ↗
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))
-        }
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class='section' id='experience'>
+      <div class='section-rail'>
+        <h2>Experience</h2>
+      </div>
+      <div class='section-body'>
+        <div class='row-list'>
+          {
+            experiences.map((experience) => (
+              <article class='row-item'>
+                <p class='mono-meta'>{experience.period}</p>
+                <div>
+                  <h3>{experience.role}</h3>
+                  <p class='row-focus'>{experience.focus}</p>
+                  <p class='muted'>
+                    {experience.company} · {experience.location}
+                  </p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
       </div>
     </section>
 
     <section class='section' id='awards'>
-      <div class='section-heading'>
+      <div class='section-rail'>
         <h2>Honors & Awards</h2>
+        <p class='rail-note'>Selected</p>
       </div>
-      <div class='award-list'>
-        {
-          awards.map((award) => (
-            <article class='award-item'>
-              <div class='award-content'>
-                <h3>{award.title}</h3>
-                <p>{award.description}</p>
-              </div>
-              <p class='award-period'>{award.period}</p>
-            </article>
-          ))
-        }
+      <div class='section-body'>
+        <div class='award-list'>
+          {
+            awards.map((award) => (
+              <article class='award-item'>
+                <div>
+                  <h3>{award.title}</h3>
+                  <p class='muted'>{award.description}</p>
+                </div>
+                <p class='mono-meta award-period'>{award.period}</p>
+              </article>
+            ))
+          }
+        </div>
       </div>
     </section>
 
-    <section class='section education-section' id='education'>
-      <div class='section-heading'>
+    <section class='section' id='education'>
+      <div class='section-rail'>
         <h2>Education</h2>
       </div>
-      <div class='education-heading'>
-        <h3>University of Minnesota Twin Cities</h3>
-        <p class='education-period'>Sep 2024 – Present</p>
-      </div>
-      <div class='education-details'>
-        <div class='education-detail'>
-          <p>Major</p>
-          <p>Computer Science</p>
+      <div class='section-body'>
+        <div class='education-heading'>
+          <h3>University of Minnesota Twin Cities</h3>
+          <p class='mono-meta'>Sep 2024 – Present</p>
         </div>
-        <div class='education-detail'>
-          <p>GPA</p>
-          <p>3.96 / 4.0</p>
-        </div>
-        <div class='education-detail'>
-          <p>Activities</p>
-          <p>Competitive Programming · ICPC Contestant · ICPC Coach, 2026–2027</p>
+        <div class='detail-list'>
+          <div class='detail-row'>
+            <p>Degree</p>
+            <p>B.S. in Computer Science</p>
+          </div>
+          <div class='detail-row'>
+            <p>GPA</p>
+            <p>3.96 / 4.0</p>
+          </div>
+          <div class='detail-row'>
+            <p>Activities</p>
+            <p>Competitive Programming · ICPC Contestant · ICPC Coach, 2026–2027</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class='blog-callout' aria-labelledby='blog-callout-title'>
-      <div>
-        <p class='section-kicker'>Beyond research</p>
-        <h2 id='blog-callout-title'>Notes on programming, competitions, and everyday life.</h2>
+    <section class='section' id='service'>
+      <div class='section-rail'>
+        <h2>Teaching & Service</h2>
       </div>
-      <a href='/blog'>Visit the blog <span>→</span></a>
+      <div class='section-body'>
+        <div class='row-list'>
+          {
+            service.map((item) => (
+              <article class='row-item'>
+                <p class='mono-meta'>{item.period}</p>
+                <div>
+                  <h3>{item.role}</h3>
+                  <p class='muted'>{item.detail}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class='section' id='writing'>
+      <div class='section-rail'>
+        <h2>Writing</h2>
+        <a class='rail-link' href='/blog'>All posts →</a>
+      </div>
+      <div class='section-body'>
+        <p class='section-intro muted'>
+          Contest write-ups, technical notes, and the occasional reflection. Most posts are written
+          in Chinese.
+        </p>
+        <div class='post-list'>
+          {
+            recentPosts.map((post) => (
+              <a class='post-item' href={`/blog/${post.id}`}>
+                <p class='mono-meta'>{postDateFormatter.format(new Date(post.data.publishDate))}</p>
+                <div>
+                  {post.data.category && (
+                    <p class='tag'>{categoryLabels[post.data.category] ?? post.data.category}</p>
+                  )}
+                  <h3>{post.data.title}</h3>
+                  <p class='muted'>{post.data.description}</p>
+                </div>
+                <span class='arrow' aria-hidden='true'>
+                  →
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class='contact-card' id='contact' aria-labelledby='contact-title'>
+      <div>
+        <p class='eyebrow'>Get in touch</p>
+        <h2 id='contact-title'>Happy to talk about agents, evaluation, or contest problems.</h2>
+        <p class='muted'>Email is the fastest way to reach me.</p>
+      </div>
+      <div class='contact-links'>
+        <a class='action primary' href={`mailto:${email}`}>
+          <Icon name='email' />
+          <span>{email}</span>
+        </a>
+        <div class='contact-secondary'>
+          <a href={scholarUrl} target='_blank' rel='noreferrer'>Google Scholar ↗</a>
+          <a href={githubUrl} target='_blank' rel='noreferrer'>GitHub ↗</a>
+          <a href={linkedinUrl} target='_blank' rel='noreferrer'>LinkedIn ↗</a>
+          <a href='/cv.pdf' target='_blank' rel='noreferrer'>CV ↗</a>
+        </div>
+      </div>
     </section>
   </div>
 </main>
@@ -472,6 +657,8 @@ const jsonLd = JSON.stringify({
 </script>
 
 <style>
+  /* === Shared primitives === */
+
   .skip-link {
     position: fixed;
     top: 0.75rem;
@@ -488,19 +675,65 @@ const jsonLd = JSON.stringify({
     transform: translateY(0);
   }
 
+  h1,
+  h2,
+  h3,
+  p {
+    text-wrap: pretty;
+  }
+
+  .mono-meta {
+    margin: 0;
+    color: var(--home-muted);
+    font-family: 'ComicShannsMono', ui-monospace, monospace;
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+
+  .muted {
+    color: var(--home-muted);
+  }
+
+  .tag {
+    margin: 0 0 0.3rem;
+    color: var(--home-accent);
+    font-size: 0.67rem;
+    font-weight: 720;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow {
+    margin: 0 0 1rem;
+    color: var(--home-accent);
+    font-size: 0.72rem;
+    font-weight: 720;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .arrow {
+    display: inline-block;
+    transition: transform 160ms ease;
+  }
+
+  /* === Header === */
+
   .site-header {
     position: sticky;
     top: 0;
     z-index: 20;
     border-bottom: 1px solid color-mix(in srgb, var(--home-border) 82%, transparent);
-    background: color-mix(in srgb, var(--home-background) 92%, transparent);
+    background: color-mix(in srgb, var(--home-background) 90%, transparent);
     backdrop-filter: blur(12px);
   }
 
   .nav-shell {
     display: flex;
-    width: min(1080px, calc(100% - 2.5rem));
-    min-height: 4.5rem;
+    width: min(1120px, calc(100% - 3rem));
+    min-height: 4.25rem;
     margin: 0 auto;
     align-items: center;
     justify-content: space-between;
@@ -508,7 +741,7 @@ const jsonLd = JSON.stringify({
   }
 
   .brand {
-    font-size: 1rem;
+    font-size: 0.98rem;
     font-weight: 720;
     letter-spacing: -0.01em;
     text-decoration: none;
@@ -517,13 +750,14 @@ const jsonLd = JSON.stringify({
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 1.35rem;
+    gap: 1.15rem;
     color: var(--home-muted);
-    font-size: 0.9rem;
+    font-size: 0.86rem;
   }
 
   .nav-links a {
     text-decoration: none;
+    transition: color 140ms ease;
   }
 
   .nav-links a:hover,
@@ -532,7 +766,7 @@ const jsonLd = JSON.stringify({
   }
 
   .blog-link {
-    padding: 0.45rem 0.8rem;
+    padding: 0.4rem 0.8rem;
     border: 1px solid var(--home-border);
     border-radius: 999px;
     color: var(--home-foreground) !important;
@@ -540,8 +774,8 @@ const jsonLd = JSON.stringify({
 
   .theme-toggle {
     display: grid;
-    width: 2rem;
-    height: 2rem;
+    width: 1.95rem;
+    height: 1.95rem;
     padding: 0;
     place-items: center;
     border: 1px solid var(--home-border);
@@ -558,229 +792,313 @@ const jsonLd = JSON.stringify({
     border-color: var(--home-accent);
   }
 
-  .page-shell {
-    display: grid;
-    width: min(1080px, calc(100% - 2.5rem));
+  /* === Hero === */
+
+  .hero {
+    width: min(1120px, calc(100% - 3rem));
     margin: 0 auto;
-    padding: 5.25rem 0 7rem;
-    grid-template-columns: 15rem minmax(0, 1fr);
-    gap: clamp(3rem, 7vw, 7rem);
-    align-items: start;
+    padding-top: clamp(3rem, 7vw, 5.5rem);
   }
 
-  .profile-card {
-    position: sticky;
-    top: 7.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.4rem;
-  }
-
-  .avatar {
-    width: 11rem;
-    height: 11rem;
-    border: 1px solid var(--home-border);
-    border-radius: 50%;
-    background: var(--home-surface);
-    object-fit: cover;
-  }
-
-  .profile-name {
-    margin: 0 0 0.25rem;
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .profile-role,
-  .university {
-    margin: 0;
-    color: var(--home-muted);
-    font-size: 0.92rem;
-    line-height: 1.55;
-  }
-
-  .university {
-    display: inline-block;
-    margin-top: 0.2rem;
-    text-decoration-color: var(--home-border);
-    text-underline-offset: 0.2rem;
-  }
-
-  .profile-links {
-    display: flex;
-    padding-top: 1rem;
-    flex-direction: column;
-    gap: 0.7rem;
-    border-top: 1px solid var(--home-border);
-  }
-
-  .profile-links a {
-    display: flex;
-    min-width: 0;
+  .hero-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 19.5rem;
+    gap: clamp(2.5rem, 6vw, 5rem);
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    color: var(--home-muted);
-    font-size: 0.9rem;
-    text-decoration: none;
   }
 
-  .profile-links a:hover,
-  .profile-links a:focus-visible {
+  .hero-text h1 {
+    margin: 0;
+    font-size: clamp(2.9rem, 6.5vw, 4.6rem);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .hero-role {
+    margin: 1rem 0 0;
+    color: var(--home-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .hero-role a {
+    text-decoration-color: var(--home-border);
+    text-underline-offset: 0.22rem;
+  }
+
+  .hero-role a:hover,
+  .hero-role a:focus-visible {
     color: var(--home-accent);
   }
 
-  .profile-link-main {
+  .lead {
+    max-width: 34rem;
+    margin: 1.85rem 0 0;
+    font-size: clamp(1.08rem, 1.6vw, 1.22rem);
+    line-height: 1.62;
+    letter-spacing: -0.011em;
+  }
+
+  .hero-note {
+    max-width: 34rem;
+    margin: 1rem 0 0;
+    color: var(--home-muted);
+    font-size: 0.97rem;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
     display: flex;
-    min-width: 0;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .action {
+    display: inline-flex;
+    padding: 0.5rem 0.95rem;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.5rem;
+    border: 1px solid var(--home-border);
+    border-radius: 999px;
+    background: var(--home-surface);
+    font-size: 0.87rem;
+    font-weight: 560;
+    text-decoration: none;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease,
+      transform 140ms ease;
   }
 
-  .profile-link-main > span:last-child {
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .action:hover,
+  .action:focus-visible {
+    border-color: var(--home-accent);
+    color: var(--home-accent);
+    transform: translateY(-1px);
   }
 
-  .profile-link-icon {
-    display: grid;
-    width: 1.1rem;
-    height: 1.1rem;
-    flex: none;
-    place-items: center;
-    color: var(--home-foreground);
+  .action.primary {
+    border-color: transparent;
+    background: var(--home-foreground);
+    color: var(--home-background);
   }
 
-  .profile-link-icon :global(svg) {
+  .action.primary:hover,
+  .action.primary:focus-visible {
+    border-color: transparent;
+    background: var(--home-accent);
+    color: var(--home-background);
+  }
+
+  .action :global(svg) {
     width: 1rem;
     height: 1rem;
+    flex: none;
   }
 
   .linkedin-mark {
     display: grid;
     width: 1rem;
     height: 1rem;
+    flex: none;
     place-items: center;
-    border-radius: 0.12rem;
-    background: var(--home-foreground);
-    color: var(--home-background);
+    border-radius: 0.14rem;
+    background: currentColor;
+    color: inherit;
     font-family: Arial, sans-serif;
-    font-size: 0.67rem;
-    font-weight: 800;
+    font-size: 0;
     line-height: 1;
   }
 
-  .content-column {
-    min-width: 0;
+  .linkedin-mark::after {
+    content: 'in';
+    color: var(--home-surface);
+    font-size: 0.62rem;
+    font-weight: 800;
   }
 
-  .intro-section {
-    padding-bottom: 5.5rem;
+  .action.primary .linkedin-mark::after {
+    color: var(--home-foreground);
+  }
+
+  .hero-photo {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    border: 1px solid var(--home-border);
+    border-radius: 1.1rem;
+    background: var(--home-surface);
+    box-shadow: 0 18px 40px -28px rgb(16 20 24 / 45%);
+  }
+
+  /* Slight zoom toward the bottom-right so the subject reads at small sizes
+     while the skyline still shows at the top of the frame. */
+  .portrait {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: block;
+    width: 130%;
+    height: 130%;
+    object-fit: cover;
+  }
+
+  .highlight-strip {
+    display: grid;
+    margin: clamp(3rem, 6vw, 4.5rem) 0 0;
+    padding: 1.4rem 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    border-top: 1px solid var(--home-border);
     border-bottom: 1px solid var(--home-border);
   }
 
-  .eyebrow,
-  .section-kicker {
-    margin: 0 0 1rem;
-    color: var(--home-accent);
-    font-size: 0.72rem;
-    font-weight: 720;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+  .highlight {
+    min-width: 0;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--home-border);
   }
 
-  h1,
-  h2,
-  h3,
-  p {
-    text-wrap: pretty;
+  .highlight:first-child {
+    padding-left: 0;
+    border-left: none;
   }
 
-  .intro-section h1 {
-    max-width: 12ch;
-    margin: 0;
-    font-size: clamp(3rem, 7vw, 5.7rem);
-    font-weight: 650;
-    line-height: 0.98;
-    letter-spacing: -0.065em;
+  .highlight dt {
+    font-size: 0.98rem;
+    font-weight: 660;
+    letter-spacing: -0.015em;
   }
 
-  .intro-section h1 span {
-    color: var(--home-accent);
-  }
-
-  .lead {
-    max-width: 42rem;
-    margin: 2.3rem 0 0;
-    font-size: clamp(1.15rem, 2vw, 1.4rem);
-    line-height: 1.62;
-    letter-spacing: -0.012em;
-  }
-
-  .intro-note {
-    max-width: 40rem;
-    margin: 1.15rem 0 0;
+  .highlight dd {
+    margin: 0.3rem 0 0;
     color: var(--home-muted);
-    font-size: 1rem;
-    line-height: 1.7;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  /* === Section scaffolding === */
+
+  .page-shell {
+    width: min(1120px, calc(100% - 3rem));
+    margin: 0 auto;
+    padding-bottom: 5rem;
   }
 
   .section {
-    padding: 5.25rem 0;
+    display: grid;
+    padding: clamp(3rem, 5vw, 4.5rem) 0;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4rem);
     border-bottom: 1px solid var(--home-border);
+    scroll-margin-top: 5.5rem;
   }
 
-  .section-heading h2,
-  .blog-callout h2 {
+  .section-rail {
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+  }
+
+  .section-rail h2 {
     margin: 0;
-    font-size: clamp(1.8rem, 4vw, 2.7rem);
-    font-weight: 650;
-    line-height: 1.12;
-    letter-spacing: -0.045em;
+    font-size: 0.78rem;
+    font-weight: 720;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+    text-transform: uppercase;
   }
 
-  .research-list {
-    margin-top: 2.5rem;
-    border-top: 1px solid var(--home-border);
+  .rail-note {
+    margin: 0.5rem 0 0;
+    color: var(--home-muted);
+    font-size: 0.8rem;
+    line-height: 1.5;
   }
+
+  .rail-link {
+    display: inline-block;
+    margin-top: 0.55rem;
+    color: var(--home-muted);
+    font-size: 0.8rem;
+    text-decoration: none;
+  }
+
+  .rail-link:hover,
+  .rail-link:focus-visible {
+    color: var(--home-accent);
+  }
+
+  .section-body {
+    min-width: 0;
+  }
+
+  .section-intro {
+    max-width: 46rem;
+    margin: 0 0 1.75rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* === About === */
+
+  .prose-block p {
+    max-width: 46rem;
+    margin: 0 0 1.15rem;
+    font-size: 1rem;
+    line-height: 1.78;
+  }
+
+  .prose-block p:first-child {
+    font-size: 1.06rem;
+  }
+
+  .prose-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  .currently {
+    margin-top: 1.9rem !important;
+    padding: 0.9rem 1.1rem;
+    border-left: 2px solid var(--home-accent);
+    border-radius: 0 0.5rem 0.5rem 0;
+    background: var(--home-accent-soft);
+    font-size: 0.93rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .currently span {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  /* === News === */
 
   .news-list {
-    margin-top: 2.5rem;
     border-top: 1px solid var(--home-border);
   }
 
   .news-item {
     display: grid;
-    padding: 1.35rem 0;
-    grid-template-columns: 6.5rem minmax(0, 1fr);
+    padding: 1.3rem 0;
+    grid-template-columns: 6rem minmax(0, 1fr);
     gap: 1.25rem;
     border-bottom: 1px solid var(--home-border);
   }
 
-  .news-date {
-    margin: 0;
-    padding-top: 0.15rem;
-    color: var(--home-muted);
-    font-family: 'ComicShannsMono', monospace;
-    font-size: 0.78rem;
-    line-height: 1.5;
-  }
-
-  .news-category {
-    margin: 0 0 0.25rem;
-    color: var(--home-accent);
-    font-size: 0.68rem;
-    font-weight: 720;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+  .news-item .mono-meta {
+    padding-top: 0.2rem;
   }
 
   .news-content h3 {
     margin: 0;
-    font-size: 1.05rem;
-    font-weight: 680;
-    line-height: 1.4;
+    font-size: 1.02rem;
+    font-weight: 660;
+    line-height: 1.45;
+    letter-spacing: -0.012em;
   }
 
   .news-content h3 a {
@@ -792,122 +1110,69 @@ const jsonLd = JSON.stringify({
     color: var(--home-accent);
   }
 
+  .news-content h3 a:hover .arrow,
+  .news-content h3 a:focus-visible .arrow {
+    transform: translateX(0.2rem);
+  }
+
   .news-content > p:last-child {
-    margin: 0.3rem 0 0;
-    color: var(--home-muted);
-    font-size: 0.9rem;
-    line-height: 1.55;
-  }
-
-  .research-item {
-    display: grid;
-    padding: 1.6rem 0;
-    grid-template-columns: 3rem 1fr;
-    gap: 1rem;
-    border-bottom: 1px solid var(--home-border);
-  }
-
-  .research-number {
-    padding-top: 0.15rem;
-    color: var(--home-accent);
-    font-family: 'ComicShannsMono', monospace;
-    font-size: 0.78rem;
-  }
-
-  .research-item h3 {
-    margin: 0;
-    font-size: 1.12rem;
-    font-weight: 680;
-  }
-
-  .research-item p {
     margin: 0.35rem 0 0;
-    color: var(--home-muted);
-    line-height: 1.65;
+    font-size: 0.9rem;
+    line-height: 1.6;
   }
 
-  .experience-list,
-  .award-list {
-    margin-top: 2.8rem;
-    border-top: 1px solid var(--home-border);
-  }
+  /* === Research === */
 
-  .experience-item {
+  .research-grid {
     display: grid;
-    padding: 2rem 0 2.2rem;
-    grid-template-columns: 8.5rem minmax(0, 1fr);
-    gap: 1.25rem;
-    border-bottom: 1px solid var(--home-border);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--home-border);
+    border-radius: 0.8rem;
+    background: var(--home-border);
+    overflow: hidden;
   }
 
-  .experience-period,
-  .award-period,
-  .education-period {
-    margin: 0;
-    color: var(--home-muted);
-    font-family: 'ComicShannsMono', monospace;
-    font-size: 0.8rem;
-    line-height: 1.5;
+  .research-card {
+    padding: 1.6rem 1.5rem;
+    background: var(--home-background);
   }
 
-  .experience-content h3,
-  .award-content h3 {
-    margin: 0;
-    font-size: 1.12rem;
-    font-weight: 700;
-    line-height: 1.35;
+  .research-card .mono-meta {
+    color: var(--home-accent);
+  }
+
+  .research-card h3 {
+    margin: 0.55rem 0 0;
+    font-size: 1.06rem;
+    font-weight: 680;
     letter-spacing: -0.015em;
   }
 
-  .experience-focus {
-    margin: 0.2rem 0 0;
-    color: var(--home-accent);
-    font-size: 1rem;
-    font-weight: 650;
+  .research-card p {
+    margin: 0.5rem 0 0;
+    font-size: 0.91rem;
+    line-height: 1.68;
   }
 
-  .company-line {
-    margin: 0.35rem 0 0;
-    color: var(--home-muted);
-    font-size: 0.9rem;
-  }
-
-  .publication-heading {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 1.5rem;
-  }
-
-  .publication-heading > a {
-    color: var(--home-muted);
-    font-size: 0.9rem;
-    text-underline-offset: 0.25rem;
-  }
-
-  .publication-heading > a:hover,
-  .publication-heading > a:focus-visible {
-    color: var(--home-accent);
-  }
+  /* === Publications === */
 
   .publication-list {
-    margin-top: 2.8rem;
+    display: grid;
+    gap: 1px;
+    background: var(--home-border);
+    border: 1px solid var(--home-border);
+    border-radius: 0.8rem;
+    overflow: hidden;
   }
 
   .publication-item {
     display: grid;
-    padding: 2rem 0;
+    padding: 1.6rem;
     grid-template-columns: 13rem minmax(0, 1fr);
     gap: 1.5rem;
     align-items: start;
-    border-top: 1px solid var(--home-border);
-  }
-
-  .publication-year {
-    margin: 0 0 0.45rem;
-    color: var(--home-muted);
-    font-family: 'ComicShannsMono', monospace;
-    font-size: 0.84rem;
+    background: var(--home-background);
   }
 
   .publication-visual {
@@ -915,7 +1180,7 @@ const jsonLd = JSON.stringify({
     overflow: hidden;
     aspect-ratio: 16 / 10;
     border: 1px solid var(--home-border);
-    border-radius: 0.45rem;
+    border-radius: 0.5rem;
     background: #ffffff;
   }
 
@@ -924,19 +1189,19 @@ const jsonLd = JSON.stringify({
     height: 100%;
     object-fit: cover;
     object-position: top center;
-    transition: transform 180ms ease;
+    transition: transform 200ms ease;
   }
 
   .publication-visual:hover .publication-image,
   .publication-visual:focus-visible .publication-image {
-    transform: scale(1.025);
+    transform: scale(1.03);
   }
 
   .publication-content h3 {
-    margin: 0;
-    font-size: 1.15rem;
+    margin: 0.5rem 0 0;
+    font-size: 1.08rem;
     font-weight: 680;
-    line-height: 1.35;
+    line-height: 1.4;
     letter-spacing: -0.015em;
   }
 
@@ -950,10 +1215,10 @@ const jsonLd = JSON.stringify({
   }
 
   .authors {
-    margin: 0.75rem 0 0;
+    margin: 0.6rem 0 0;
     color: var(--home-muted);
-    font-size: 0.91rem;
-    line-height: 1.55;
+    font-size: 0.87rem;
+    line-height: 1.6;
   }
 
   .authors strong {
@@ -961,130 +1226,248 @@ const jsonLd = JSON.stringify({
     font-weight: 700;
   }
 
+  .publication-summary {
+    margin: 0.7rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
   .publication-meta {
     display: flex;
     margin-top: 0.9rem;
     align-items: center;
-    gap: 1rem;
-    color: var(--home-muted);
+    gap: 1.1rem;
     font-size: 0.84rem;
   }
 
   .publication-meta a {
     color: var(--home-accent);
+    text-decoration: none;
     text-underline-offset: 0.2rem;
   }
 
+  .publication-meta a:hover,
+  .publication-meta a:focus-visible {
+    text-decoration: underline;
+  }
+
+  /* === Experience / Service rows === */
+
+  .row-list,
+  .award-list {
+    border-top: 1px solid var(--home-border);
+  }
+
+  .row-item {
+    display: grid;
+    padding: 1.5rem 0;
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    gap: 1.25rem;
+    border-bottom: 1px solid var(--home-border);
+  }
+
+  .row-item .mono-meta {
+    padding-top: 0.22rem;
+  }
+
+  .row-item h3,
+  .award-item h3 {
+    margin: 0;
+    font-size: 1.06rem;
+    font-weight: 680;
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+  }
+
+  .row-focus {
+    margin: 0.2rem 0 0;
+    color: var(--home-accent);
+    font-size: 0.95rem;
+    font-weight: 620;
+  }
+
+  .row-item p:last-child {
+    margin: 0.35rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  /* === Awards === */
+
   .award-item {
     display: grid;
-    padding: 1.45rem 0;
+    padding: 1.35rem 0;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
     gap: 2rem;
     border-bottom: 1px solid var(--home-border);
   }
 
-  .award-content p {
-    margin: 0.35rem 0 0;
-    color: var(--home-muted);
-    font-size: 0.92rem;
-    line-height: 1.55;
+  .award-item p {
+    margin: 0.3rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
   }
 
   .award-period {
-    max-width: 9rem;
+    max-width: 9.5rem;
+    padding-top: 0.2rem;
     text-align: right;
+    white-space: normal;
   }
 
-  .education-section {
-    padding-bottom: 4.5rem;
-  }
+  /* === Education === */
 
   .education-heading {
     display: flex;
-    margin-top: 2.8rem;
-    align-items: end;
+    align-items: baseline;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .education-heading h3 {
     margin: 0;
-    font-size: clamp(1.35rem, 3vw, 1.85rem);
-    font-weight: 650;
-    line-height: 1.2;
-    letter-spacing: -0.035em;
+    font-size: 1.3rem;
+    font-weight: 660;
+    letter-spacing: -0.025em;
   }
 
-  .education-period {
-    flex: none;
-    padding-bottom: 0.25rem;
-  }
-
-  .education-details {
-    display: grid;
-    margin-top: 2.4rem;
+  .detail-list {
+    margin-top: 1.5rem;
     border-top: 1px solid var(--home-border);
   }
 
-  .education-detail {
+  .detail-row {
     display: grid;
-    padding: 1rem 0;
+    padding: 0.85rem 0;
     grid-template-columns: 7rem minmax(0, 1fr);
     gap: 1rem;
     border-bottom: 1px solid var(--home-border);
   }
 
-  .education-detail p {
+  .detail-row p {
     margin: 0;
+    font-size: 0.93rem;
   }
 
-  .education-detail p:first-child {
+  .detail-row p:first-child {
     color: var(--home-muted);
-    font-size: 0.9rem;
   }
 
-  .education-detail p:last-child {
+  .detail-row p:last-child {
     font-weight: 600;
   }
 
-  .blog-callout {
+  /* === Writing === */
+
+  .post-list {
+    border-top: 1px solid var(--home-border);
+  }
+
+  .post-item {
     display: grid;
-    margin-top: 5.25rem;
-    padding: 2rem;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
-    gap: 2rem;
-    border: 1px solid var(--home-border);
-    border-radius: 0.8rem;
-    background: var(--home-accent-soft);
-  }
-
-  .blog-callout h2 {
-    max-width: 18ch;
-    font-size: clamp(1.5rem, 3vw, 2.1rem);
-  }
-
-  .blog-callout > a {
-    white-space: nowrap;
-    color: var(--home-accent);
-    font-weight: 680;
+    padding: 1.3rem 0;
+    grid-template-columns: 6rem minmax(0, 1fr) 1rem;
+    gap: 1.25rem;
+    align-items: start;
+    border-bottom: 1px solid var(--home-border);
     text-decoration: none;
   }
 
-  .blog-callout > a span {
-    display: inline-block;
-    transition: transform 160ms ease;
+  .post-item .mono-meta {
+    padding-top: 0.2rem;
   }
 
-  .blog-callout > a:hover span,
-  .blog-callout > a:focus-visible span {
-    transform: translateX(0.25rem);
+  .post-item h3 {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 660;
+    line-height: 1.45;
+    letter-spacing: -0.012em;
   }
+
+  .post-item p:last-child {
+    margin: 0.35rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .post-item .arrow {
+    padding-top: 0.15rem;
+    color: var(--home-muted);
+    text-align: right;
+  }
+
+  .post-item:hover h3,
+  .post-item:focus-visible h3 {
+    color: var(--home-accent);
+  }
+
+  .post-item:hover .arrow,
+  .post-item:focus-visible .arrow {
+    color: var(--home-accent);
+    transform: translateX(0.2rem);
+  }
+
+  /* === Contact === */
+
+  .contact-card {
+    display: grid;
+    margin-top: 4rem;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 2.5rem;
+    border: 1px solid var(--home-border);
+    border-radius: 1rem;
+    background: var(--home-accent-soft);
+    scroll-margin-top: 5.5rem;
+  }
+
+  .contact-card h2 {
+    max-width: 22ch;
+    margin: 0;
+    font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+    font-weight: 650;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+  }
+
+  .contact-card > div:first-child > p:last-child {
+    margin: 0.7rem 0 0;
+    font-size: 0.92rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.9rem;
+  }
+
+  .contact-secondary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.35rem 1.1rem;
+    color: var(--home-muted);
+    font-size: 0.84rem;
+  }
+
+  .contact-secondary a {
+    text-decoration: none;
+  }
+
+  .contact-secondary a:hover,
+  .contact-secondary a:focus-visible {
+    color: var(--home-accent);
+  }
+
+  /* === Footer === */
 
   .personal-footer {
     display: flex;
-    width: min(1080px, calc(100% - 2.5rem));
+    width: min(1120px, calc(100% - 3rem));
     margin: 0 auto;
     padding: 1.5rem 0 2.5rem;
     justify-content: space-between;
@@ -1098,80 +1481,119 @@ const jsonLd = JSON.stringify({
     margin: 0;
   }
 
-  @media (max-width: 780px) {
-    .nav-shell {
-      min-height: 4rem;
+  /* === Responsive === */
+
+  @media (max-width: 1000px) {
+    .section {
+      grid-template-columns: 9rem minmax(0, 1fr);
     }
 
-    .nav-links {
-      gap: 0.7rem;
+    .hero-shell {
+      grid-template-columns: minmax(0, 1fr) 16rem;
     }
 
+    .publication-item {
+      grid-template-columns: 11rem minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 820px) {
     .nav-links > a:not(.blog-link):not(.cv-link) {
       display: none;
     }
 
-    .page-shell {
-      padding-top: 3.25rem;
+    .nav-links {
+      gap: 0.8rem;
+    }
+
+    .hero-shell {
       grid-template-columns: 1fr;
-      gap: 4rem;
+      gap: 2.5rem;
     }
 
-    .profile-card {
-      position: static;
-      display: grid;
-      grid-template-columns: 7rem 1fr;
-      gap: 1rem 1.25rem;
-      align-items: center;
+    .hero-photo {
+      order: -1;
+      max-width: 15rem;
     }
 
-    .avatar {
-      width: 7rem;
-      height: 7rem;
-      grid-row: span 1;
+    .highlight-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem 1.5rem;
     }
 
-    .profile-links {
-      grid-column: 1 / -1;
-    }
-
-    .profile-links a {
-      padding: 0.15rem 0;
-    }
-
-    .intro-section {
-      padding-bottom: 4rem;
-    }
-
-    .intro-section h1 {
-      font-size: clamp(3.5rem, 16vw, 5rem);
+    .highlight:nth-child(odd) {
+      padding-left: 0;
+      border-left: none;
     }
 
     .section {
-      padding: 4rem 0;
-    }
-
-    .publication-heading {
-      align-items: start;
-      flex-direction: column;
-    }
-
-    .news-item {
-      grid-template-columns: 5.5rem minmax(0, 1fr);
-      gap: 0.75rem;
-    }
-
-    .experience-item {
       grid-template-columns: 1fr;
-      gap: 0.65rem;
+      gap: 1.5rem;
+    }
+
+    .section-rail {
+      position: static;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .rail-note,
+    .rail-link {
+      margin-top: 0;
+    }
+
+    .research-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-card {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    .contact-links {
+      align-items: flex-start;
+    }
+
+    .contact-secondary {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .nav-shell,
+    .hero,
+    .page-shell,
+    .personal-footer {
+      width: min(100% - 2rem, 1120px);
+    }
+
+    .publication-item {
+      padding: 1.25rem;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .news-item,
+    .row-item,
+    .post-item {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+
+    .post-item .arrow {
+      display: none;
     }
 
     .award-item {
       grid-template-columns: 1fr;
-      gap: 0.65rem;
+      gap: 0.45rem;
     }
 
     .award-period {
+      max-width: none;
       grid-row: 1;
       text-align: left;
     }
@@ -1179,50 +1601,24 @@ const jsonLd = JSON.stringify({
     .education-heading {
       align-items: flex-start;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.5rem;
     }
 
-    .blog-callout {
+    .detail-row {
       grid-template-columns: 1fr;
-      align-items: start;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .nav-shell,
-    .page-shell,
-    .personal-footer {
-      width: min(100% - 1.5rem, 1080px);
-    }
-
-    .publication-item {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .publication-visual {
-      width: 100%;
-    }
-
-    .news-item {
-      grid-template-columns: 1fr;
-      gap: 0.35rem;
+      gap: 0.25rem;
     }
 
     .personal-footer {
       align-items: flex-start;
       flex-direction: column;
     }
-
-    .education-detail {
-      grid-template-columns: 1fr;
-      gap: 0.3rem;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .publication-image,
-    .blog-callout > a span {
+    .arrow,
+    .action {
       transition: none;
     }
   }
