@@ -12,13 +12,6 @@ const linkedinUrl = 'https://www.linkedin.com/in/anhao-andy-li-b34b1b324/'
 const githubUrl = 'https://github.com/lomit0315'
 const email = 'li003978@umn.edu'
 
-const highlights = [
-  { value: 'ICPC World Finalist', label: '2026 · 9th in North America' },
-  { value: '6× NOIP / CSP First Prize', label: 'National olympiad in informatics' },
-  { value: '2× SWE intern', label: 'VecML · Bellevue, WA' },
-  { value: 'GPA 3.96 / 4.0', label: 'Computer Science, UMN' }
-]
-
 const news = [
   {
     date: 'Aug 2026',
@@ -277,7 +270,7 @@ const jsonLd = JSON.stringify({
 </header>
 
 <main id='main-content'>
-  <section class='hero' aria-labelledby='hero-title'>
+  <section class='hero' id='about' aria-labelledby='hero-title'>
     <div class='hero-shell'>
       <div class='hero-text'>
         <p class='eyebrow'>AI Agents · Large Language Models</p>
@@ -289,14 +282,13 @@ const jsonLd = JSON.stringify({
           </a>
         </p>
         <p class='lead'>
-          I work on AI agents and large language models, with a focus on long-horizon terminal tasks
-          — the kind that take hundreds of steps, where the hard part is not a single answer but
-          staying on course.
+          I work on AI agents and large language models — self-evolving agents, agent harnesses,
+          and reinforcement learning for long-horizon terminal tasks.
         </p>
         <p class='hero-note'>
-          Most of what I build sits between systems and evaluation: agent infrastructure that runs
-          reliably, and benchmarks that show whether an agent actually made progress. Outside
-          research, I compete in ICPC and coach competitive programming.
+          I build agent infrastructure and the benchmarks used to evaluate it. Outside research, I
+          have competed in algorithm contests for about ten years, from NOI and USACO to the ICPC
+          World Finals, and now coach the UMN team.
         </p>
         <div class='hero-actions'>
           <a class='action primary' href={`mailto:${email}`}>
@@ -334,44 +326,9 @@ const jsonLd = JSON.stringify({
         />
       </figure>
     </div>
-
-    <dl class='highlight-strip'>
-      {
-        highlights.map((item) => (
-          <div class='highlight'>
-            <dt>{item.value}</dt>
-            <dd>{item.label}</dd>
-          </div>
-        ))
-      }
-    </dl>
   </section>
 
   <div class='page-shell'>
-    <section class='section' id='about'>
-      <div class='section-rail'>
-        <h2>About</h2>
-      </div>
-      <div class='section-body prose-block'>
-        <p>
-          I am an undergraduate in Computer Science at the University of Minnesota Twin Cities. My
-          research centers on AI agents and large language models, mostly on evaluation and
-          infrastructure for long-horizon terminal tasks.
-        </p>
-        <p>
-          Before research, competitive programming shaped how I think about problems. I have
-          competed for about ten years — NOI and USACO in China, then ICPC in the United States —
-          and in 2026 our team became the first from Minnesota in a decade to reach the ICPC World
-          Finals. I now coach the university team, and I still find that the habits from contest
-          practice carry over: decompose the problem, bound the cost, verify before you commit.
-        </p>
-        <p class='currently'>
-          <span>Currently</span> preparing for the ICPC World Finals and coaching the UMN team, while
-          continuing research on agent evaluation.
-        </p>
-      </div>
-    </section>
-
     <section class='section' id='news'>
       <div class='section-rail'>
         <h2>News</h2>
@@ -794,6 +751,9 @@ const jsonLd = JSON.stringify({
     width: min(1120px, calc(100% - 3rem));
     margin: 0 auto;
     padding-top: clamp(3rem, 7vw, 5.5rem);
+    padding-bottom: clamp(3rem, 6vw, 4.5rem);
+    border-bottom: 1px solid var(--home-border);
+    scroll-margin-top: 5.5rem;
   }
 
   .hero-shell {
@@ -945,40 +905,6 @@ const jsonLd = JSON.stringify({
     height: auto;
   }
 
-  .highlight-strip {
-    display: grid;
-    margin: clamp(3rem, 6vw, 4.5rem) 0 0;
-    padding: 1.4rem 0;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.5rem;
-    border-top: 1px solid var(--home-border);
-    border-bottom: 1px solid var(--home-border);
-  }
-
-  .highlight {
-    min-width: 0;
-    padding-left: 1.5rem;
-    border-left: 1px solid var(--home-border);
-  }
-
-  .highlight:first-child {
-    padding-left: 0;
-    border-left: none;
-  }
-
-  .highlight dt {
-    font-size: 0.98rem;
-    font-weight: 660;
-    letter-spacing: -0.015em;
-  }
-
-  .highlight dd {
-    margin: 0.3rem 0 0;
-    color: var(--home-muted);
-    font-size: 0.8rem;
-    line-height: 1.5;
-  }
-
   /* === Section scaffolding === */
 
   .page-shell {
@@ -1040,38 +966,6 @@ const jsonLd = JSON.stringify({
     margin: 0 0 1.75rem;
     font-size: 0.95rem;
     line-height: 1.7;
-  }
-
-  /* === About === */
-
-  .prose-block p {
-    max-width: 46rem;
-    margin: 0 0 1.15rem;
-    font-size: 1rem;
-    line-height: 1.78;
-  }
-
-  .prose-block p:first-child {
-    font-size: 1.06rem;
-  }
-
-  .prose-block p:last-child {
-    margin-bottom: 0;
-  }
-
-  .currently {
-    margin-top: 1.9rem !important;
-    padding: 0.9rem 1.1rem;
-    border-left: 2px solid var(--home-accent);
-    border-radius: 0 0.5rem 0.5rem 0;
-    background: var(--home-accent-soft);
-    font-size: 0.93rem !important;
-    line-height: 1.65 !important;
-  }
-
-  .currently span {
-    font-weight: 700;
-    letter-spacing: -0.01em;
   }
 
   /* === News === */
@@ -1513,16 +1407,6 @@ const jsonLd = JSON.stringify({
     .hero-photo {
       order: -1;
       max-width: 15rem;
-    }
-
-    .highlight-strip {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.25rem 1.5rem;
-    }
-
-    .highlight:nth-child(odd) {
-      padding-left: 0;
-      border-left: none;
     }
 
     .section {
