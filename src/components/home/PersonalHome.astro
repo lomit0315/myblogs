@@ -68,27 +68,27 @@ const news = [
 const researchInterests = [
   {
     number: '01',
-    title: 'AI Agents',
+    title: 'Self-Evolving Agents',
     description:
-      'Autonomous systems that combine planning, reasoning, tool use, and feedback to carry a complex task from start to finish.'
+      'Agents that improve from their own execution traces — synthesizing harder tasks, verifying their own outcomes, and feeding what survives back in as training signal.'
   },
   {
     number: '02',
-    title: 'Large Language Models',
+    title: 'Agent Harnesses',
     description:
-      'Post-training, evaluation, and inference-time methods that make language models more capable and more reliable.'
+      'The scaffolding around the model: tool interfaces, context management, and execution environments. How much of a model\'s capability actually shows up on a task often depends on the harness as much as the weights.'
   },
   {
     number: '03',
-    title: 'Long-horizon Tasks',
+    title: 'Post-training',
     description:
-      'Environments, benchmarks, and verification methods that measure sustained progress across workflows spanning hundreds of steps.'
+      'Turning a base model into a dependable agent — supervised fine-tuning, preference optimization, and the data synthesis pipelines that feed them.'
   },
   {
     number: '04',
-    title: 'Algorithms & Competitive Programming',
+    title: 'Reinforcement Learning',
     description:
-      'Algorithm design and optimization through ICPC, with an emphasis on rigorous reasoning under tight computational constraints.'
+      'Reward design and credit assignment for agents acting over long horizons, where a single pass/fail at the end says very little about where the run actually went wrong.'
   }
 ]
 
@@ -240,7 +240,10 @@ const jsonLd = JSON.stringify({
   sameAs: [scholarUrl, githubUrl, linkedinUrl],
   knowsAbout: [
     'AI Agents',
+    'Self-Evolving Agents',
     'Large Language Models',
+    'Post-training',
+    'Reinforcement Learning',
     'Long-horizon terminal tasks',
     'Competitive Programming'
   ]
