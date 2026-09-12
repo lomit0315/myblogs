@@ -927,16 +927,19 @@ const jsonLd = JSON.stringify({
     box-shadow: 0 18px 40px -28px rgb(16 20 24 / 45%);
   }
 
-  /* Slight zoom toward the bottom-right so the subject reads at small sizes
-     while the skyline still shows at the top of the frame. */
+  /* Crop in on the subject so the face still reads at card size, keeping the
+     skyline in the top-left corner. The percentages frame the region
+     x 252-1494, y 273-1825 of the 1494x1890 source. */
   .portrait {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    top: -17.6%;
+    left: -20.3%;
     display: block;
-    width: 130%;
-    height: 130%;
-    object-fit: cover;
+    width: 120.3%;
+    /* Tailwind preflight caps images at max-width: 100%, which would clamp the
+       zoom above back to the card width. */
+    max-width: none;
+    height: auto;
   }
 
   .highlight-strip {
