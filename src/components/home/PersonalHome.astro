@@ -11,6 +11,7 @@ const scholarUrl = 'https://scholar.google.com/citations?user=gGpfUL4AAAAJ&hl=en
 const linkedinUrl = 'https://www.linkedin.com/in/anhao-andy-li-b34b1b324/'
 const githubUrl = 'https://github.com/lomit0315'
 const email = 'li003978@umn.edu'
+const personalEmail = 'andy.anhao.li@gmail.com'
 
 const news = [
   {
@@ -224,7 +225,7 @@ const jsonLd = JSON.stringify({
   name: 'Anhao Li',
   alternateName: 'lomit',
   url: 'https://www.lomit.top/',
-  email,
+  email: [email, personalEmail],
   jobTitle: 'Computer Science Undergraduate',
   affiliation: {
     '@type': 'CollegeOrUniversity',
@@ -578,6 +579,10 @@ const jsonLd = JSON.stringify({
         <a class='action primary' href={`mailto:${email}`}>
           <Icon name='email' />
           <span>{email}</span>
+        </a>
+        <a class='action' href={`mailto:${personalEmail}`}>
+          <Icon name='email' />
+          <span>{personalEmail}</span>
         </a>
         <div class='contact-secondary'>
           <a href={scholarUrl} target='_blank' rel='noreferrer'>Google Scholar ↗</a>
