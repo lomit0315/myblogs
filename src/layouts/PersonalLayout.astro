@@ -1,6 +1,7 @@
 ---
 import BaseHead from '@/components/BaseHead.astro'
 import ThemeProvider from '@/components/basic/ThemeProvider.astro'
+
 import '@/assets/styles/app.css'
 
 interface Props {
@@ -15,7 +16,7 @@ const { title, description } = Astro.props
   <head>
     <BaseHead {title} {description} ogImage='/og.png' />
     <ThemeProvider />
-    <meta name='theme-color' content='#f8f8f6' />
+    <meta name='theme-color' content='#ffffff' />
   </head>
   <body class='personal-body'>
     <slot />
@@ -23,35 +24,57 @@ const { title, description } = Astro.props
 </html>
 
 <style is:global>
+  /* Academic-homepage palette: white page, gray text, blue links. */
   .personal-root {
-    --home-background: #f8f8f6;
-    --home-surface: #ffffff;
-    --home-foreground: #202225;
-    --home-muted: #70747a;
-    --home-border: #dfe1e3;
-    --home-accent: #4e6174;
-    --home-accent-soft: #eef1f4;
+    --home-max-width: 1180px;
+    --home-masthead-height: 3.5rem;
+    --home-background: #ffffff;
+    --home-foreground: #1f2328;
+    --home-text: #3d434a;
+    --home-muted: #6b727b;
+    --home-nav: #4a5058;
+    --home-nav-bar: #7a8288;
+    --home-border: #e6e8eb;
+    --home-link: #2259b0;
+    --home-link-hover: #163f80;
+    --home-badge: #00369f;
+    --home-shadow: rgb(0 0 0 / 28%);
     background: var(--home-background);
-    color: var(--home-foreground);
-    scroll-padding-top: 6rem;
+    color: var(--home-text);
+    scroll-padding-top: calc(var(--home-masthead-height) + 1rem);
   }
 
   .personal-root.dark {
-    --home-background: #131516;
-    --home-surface: #1b1e20;
-    --home-foreground: #f1f1ed;
-    --home-muted: #a4a8ad;
-    --home-border: #313538;
-    --home-accent: #a9b9c8;
-    --home-accent-soft: #20262c;
+    --home-background: #121417;
+    --home-foreground: #eef0f3;
+    --home-text: #c4c9d0;
+    --home-muted: #8d95a0;
+    --home-nav: #b3b9c1;
+    --home-nav-bar: #8d95a0;
+    --home-border: #2a2f36;
+    --home-link: #8ab4ff;
+    --home-link-hover: #b3ceff;
+    --home-badge: #2f62d6;
+    --home-shadow: rgb(0 0 0 / 60%);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .personal-root {
+      scroll-behavior: smooth;
+    }
   }
 
   .personal-body {
     min-height: 100vh;
     margin: 0;
     background: var(--home-background);
-    color: var(--home-foreground);
-    font-family: 'Satoshi', 'Century Gothic', system-ui, sans-serif;
+    color: var(--home-text);
+    font-family:
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
@@ -59,12 +82,8 @@ const { title, description } = Astro.props
     box-sizing: border-box;
   }
 
-  .personal-body a {
-    color: inherit;
-  }
-
   .personal-body ::selection {
-    color: var(--home-background);
-    background: var(--home-accent);
+    color: #ffffff;
+    background: var(--home-link);
   }
 </style>
